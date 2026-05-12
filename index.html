@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BC Curriculum Unit and Lesson Planner</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #162018;
+      --muted: #5d665f;
+      --line: #cfd8d1;
+      --paper: #fbfdf9;
+      --surface: #ffffff;
+      --soft: #edf4ed;
+      --accent: #0f6b55;
+      --accent-strong: #0a4f40;
+      --warn: #8b4a0b;
+      --focus: #174ea6;
+      --shadow: 0 18px 44px rgba(23, 35, 26, 0.12);
+      font-family: Atkinson Hyperlegible, Verdana, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.5;
+    }
+
+    a {
+      color: var(--accent-strong);
+      text-decoration-thickness: 0.12em;
+      text-underline-offset: 0.18em;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    header {
+      background: #f2f7f0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+      padding: 30px 0 24px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--accent-strong);
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(2rem, 5vw, 4.4rem);
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.45rem;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .source-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .source-row a,
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    main {
+      padding: 22px 0 36px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 390px) minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    aside {
+      position: sticky;
+      top: 12px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel-inner {
+      padding: 18px;
+    }
+
+    .step-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .step-list a {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 6px;
+      color: var(--ink);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .step-list a:hover,
+    .step-list a[aria-current="true"] {
+      background: var(--soft);
+      color: var(--accent-strong);
+    }
+
+    .source-box {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .source-box p {
+      margin: 0;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      min-height: 42px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 9px 13px;
+      background: var(--accent);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #fff;
+      color: var(--accent-strong);
+    }
+
+    button.warning {
+      border-color: var(--warn);
+      background: #fff;
+      color: var(--warn);
+    }
+
+    button:hover {
+      filter: brightness(0.96);
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    fieldset {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .section {
+      scroll-margin-top: 18px;
+      border-top: 1px solid var(--line);
+      padding: 22px 0;
+    }
+
+    .section:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    legend {
+      width: 100%;
+      padding: 0;
+    }
+
+    .hint,
+    .required-note {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .required-note strong {
+      color: var(--ink);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    label,
+    .check-label {
+      display: grid;
+      gap: 6px;
+      font-weight: 750;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid #9ba8a0;
+      border-radius: 6px;
+      padding: 10px 11px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 116px;
+      resize: vertical;
+    }
+
+    .short-area {
+      min-height: 76px;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .check-label {
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      min-height: 44px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      font-weight: 650;
+    }
+
+    .check-label input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+    }
+
+    .status {
+      min-height: 30px;
+      margin-top: 12px;
+      color: var(--accent-strong);
+      font-weight: 750;
+    }
+
+    .preview {
+      display: grid;
+      gap: 18px;
+    }
+
+    .doc {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .doc h2 {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .doc h2:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .doc dl {
+      display: grid;
+      grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
+      gap: 8px 14px;
+      margin: 0;
+    }
+
+    .doc dt {
+      font-weight: 800;
+    }
+
+    .doc dd {
+      margin: 0;
+    }
+
+    .doc ul,
+    .doc ol {
+      padding-left: 1.35rem;
+    }
+
+    .doc table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+
+    .doc caption {
+      text-align: left;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .doc th,
+    .doc td {
+      border: 1px solid #aeb8b0;
+      padding: 8px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    .doc th {
+      background: var(--soft);
+    }
+
+    .empty {
+      padding: 24px;
+      border: 2px dashed var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 900px) {
+      .layout,
+      .grid,
+      .check-grid {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+      }
+
+      .doc dl {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      header,
+      aside,
+      form,
+      .button-row,
+      .empty {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+      }
+
+      main,
+      .wrap,
+      .layout,
+      .preview {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      .doc {
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      a {
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap masthead">
+      <p class="eyebrow">BC Curriculum aligned planning tool</p>
+      <h1>Unit and lesson planner for accessible BC curriculum documents</h1>
+      <p class="lead">Build a unit or lesson plan that keeps Big Ideas, Curricular Competencies, Content, Core Competencies, First Peoples Principles of Learning, assessment, differentiation, and accessibility visible from draft to export.</p>
+      <nav class="source-row" aria-label="Official curriculum links">
+        <a href="https://curriculum.gov.bc.ca/curriculum/overview" target="_blank" rel="noopener">BC curriculum overview</a>
+        <a href="https://curriculum.gov.bc.ca/competencies" target="_blank" rel="noopener">Core competencies</a>
+        <a href="https://curriculum.gov.bc.ca/curriculum/continuous-views" target="_blank" rel="noopener">Continuous views</a>
+        <a href="https://curriculum.gov.bc.ca/curriculum/tools" target="_blank" rel="noopener">Tools and resources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap layout">
+      <aside aria-label="Planner controls">
+        <section class="panel" aria-labelledby="jump-title">
+          <div class="panel-inner">
+            <h2 id="jump-title">Planner Steps</h2>
+            <ol class="step-list">
+              <li><a href="#context">1. Context</a></li>
+              <li><a href="#bc-alignment">2. BC Alignment</a></li>
+              <li><a href="#learning-design">3. Learning Design</a></li>
+              <li><a href="#assessment">4. Assessment</a></li>
+              <li><a href="#accessibility">5. Accessibility</a></li>
+              <li><a href="#export">6. Export</a></li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="source-title">
+          <div class="panel-inner source-box">
+            <h2 id="source-title">Alignment Rule</h2>
+            <p>Use the official BC curriculum pages while planning. Paste the exact Big Ideas, Curricular Competencies, and Content you will teach, then include the source URL and access date.</p>
+            <p>The exported document includes a source section so future readers can verify the plan against the BC curricular documents.</p>
+          </div>
+        </section>
+      </aside>
+
+      <div>
+        <form id="planner-form">
+          <section class="panel" aria-labelledby="form-title">
+            <div class="panel-inner">
+              <h2 id="form-title">Planning Workspace</h2>
+              <p class="required-note"><strong>Required fields</strong> are marked with an asterisk. The generated document is editable after export.</p>
+
+              <fieldset id="context" class="section">
+                <legend>
+                  <h2>1. Context</h2>
+                  <p class="hint">Name the learning sequence and define who it is for.</p>
+                </legend>
+                <div class="grid">
+                  <label>Plan type *
+                    <select id="planType" required>
+                      <option value="Unit Plan">Unit Plan</option>
+                      <option value="Lesson Plan">Lesson Plan</option>
+                    </select>
+                  </label>
+                  <label>Grade or course *
+                    <input id="grade" required placeholder="Example: Grade 5, Science 10">
+                  </label>
+                  <label>Area of learning *
+                    <select id="subject" required>
+                      <option value="">Select an area</option>
+                      <option>Applied Design, Skills and Technology</option>
+                      <option>Arts Education</option>
+                      <option>Career Education</option>
+                      <option>English Language Arts</option>
+                      <option>Français langue première</option>
+                      <option>Français langue seconde - immersion</option>
+                      <option>Languages</option>
+                      <option>Mathematics</option>
+                      <option>Physical and Health Education</option>
+                      <option>Science</option>
+                      <option>Social Studies</option>
+                    </select>
+                  </label>
+                  <label>Duration *
+                    <input id="duration" required placeholder="Example: 3 weeks, 75 minutes">
+                  </label>
+                  <label class="full">Title *
+                    <input id="title" required placeholder="Example: Ecosystems and Interdependence">
+                  </label>
+                  <label class="full">Learner context
+                    <textarea id="learners" class="short-area" placeholder="Class profile, strengths, interests, access needs, language needs, community context"></textarea>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset id="bc-alignment" class="section">
+                <legend>
+                  <h2>2. BC Alignment</h2>
+                  <p class="hint">Paste or summarize from the official BC curriculum page for the selected grade and area of learning.</p>
+                </legend>
+                <div class="grid">
+                  <label class="full">Official BC curriculum URL *
+                    <input id="sourceUrl" type="url" required placeholder="https://curriculum.gov.bc.ca/curriculum/...">
+                  </label>
+                  <label>Access date *
+                    <input id="accessDate" type="date" required>
+                  </label>
+                  <label>Source note
+                    <input id="sourceNote" placeholder="Example: Grade 6 Science curriculum page">
+                  </label>
+                  <label class="full">Big Ideas / Understand *
+                    <textarea id="bigIdeas" required placeholder="Paste the relevant Big Idea statements"></textarea>
+                  </label>
+                  <label class="full">Curricular Competencies / Do *
+                    <textarea id="competencies" required placeholder="Paste the relevant curricular competencies"></textarea>
+                  </label>
+                  <label class="full">Content / Know *
+                    <textarea id="contentStandards" required placeholder="Paste the relevant content standards"></textarea>
+                  </label>
+                  <label class="full">Core Competencies
+                    <textarea id="coreCompetencies" placeholder="Communication, Thinking, Personal and Social connections"></textarea>
+                  </label>
+                  <label class="full">First Peoples Principles of Learning connections
+                    <textarea id="fppol" placeholder="Describe respectful and authentic connections, where appropriate"></textarea>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset id="learning-design" class="section">
+                <legend>
+                  <h2>3. Learning Design</h2>
+                  <p class="hint">Use backward design: start with evidence of learning, then plan experiences.</p>
+                </legend>
+                <div class="grid">
+                  <label class="full">Learning goals *
+                    <textarea id="goals" required placeholder="Students will understand, know, and be able to..."></textarea>
+                  </label>
+                  <label class="full">Essential questions
+                    <textarea id="questions" class="short-area" placeholder="Open questions that invite inquiry"></textarea>
+                  </label>
+                  <label class="full">Learning sequence *
+                    <textarea id="sequence" required placeholder="Opening, inquiry or modelling, guided practice, collaboration, consolidation, reflection"></textarea>
+                  </label>
+                  <label class="full">Materials and technologies
+                    <textarea id="materials" class="short-area" placeholder="Include accessible formats, captions, readable documents, assistive technology supports"></textarea>
+                  </label>
+                  <label class="full">Vocabulary and language supports
+                    <textarea id="vocabulary" class="short-area" placeholder="Key terms, sentence frames, visuals, multilingual supports"></textarea>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset id="assessment" class="section">
+                <legend>
+                  <h2>4. Assessment</h2>
+                  <p class="hint">Connect assessment evidence to Curricular Competencies and make criteria visible to students.</p>
+                </legend>
+                <div class="grid">
+                  <label class="full">Assessment evidence *
+                    <textarea id="evidence" required placeholder="Products, performances, conversations, observations"></textarea>
+                  </label>
+                  <label class="full">Success criteria *
+                    <textarea id="criteria" required placeholder="Student-friendly criteria aligned to the competencies and content"></textarea>
+                  </label>
+                  <label class="full">Formative assessment and feedback
+                    <textarea id="formative" class="short-area" placeholder="Checks for understanding, peer feedback, teacher conferences, self-assessment"></textarea>
+                  </label>
+                  <label class="full">Student reflection
+                    <textarea id="reflection" class="short-area" placeholder="How students will reflect on Core Competencies, growth, and next steps"></textarea>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset id="accessibility" class="section">
+                <legend>
+                  <h2>5. Accessibility</h2>
+                  <p class="hint">These checks are carried into the exported plan to support accessible implementation and accessible documents.</p>
+                </legend>
+                <div class="check-grid">
+                  <label class="check-label"><input id="aHeadings" type="checkbox" checked> Uses meaningful headings in order</label>
+                  <label class="check-label"><input id="aContrast" type="checkbox" checked> Maintains strong colour contrast</label>
+                  <label class="check-label"><input id="aAlt" type="checkbox"> Provides alt text for images and diagrams</label>
+                  <label class="check-label"><input id="aCaptions" type="checkbox"> Captions audio or video materials</label>
+                  <label class="check-label"><input id="aLinks" type="checkbox" checked> Uses descriptive link text</label>
+                  <label class="check-label"><input id="aTables" type="checkbox" checked> Uses tables only for data, with headers</label>
+                  <label class="check-label"><input id="aFormats" type="checkbox"> Provides multiple ways to access content</label>
+                  <label class="check-label"><input id="aAssistive" type="checkbox"> Checks compatibility with assistive technology</label>
+                </div>
+                <div class="grid">
+                  <label class="full">Universal Design for Learning and accommodations
+                    <textarea id="udl" placeholder="Multiple means of engagement, representation, action and expression; individual accommodations"></textarea>
+                  </label>
+                  <label class="full">Accessible document notes
+                    <textarea id="accessibleDocNotes" class="short-area" placeholder="Examples: export as tagged PDF from Word, run accessibility checker, keep reading order logical"></textarea>
+                  </label>
+                </div>
+              </fieldset>
+
+              <section id="export" class="section" aria-labelledby="export-title">
+                <h2 id="export-title">6. Export</h2>
+                <p class="hint">Generate a semantic HTML plan, print it, or download an HTML document that can be opened in Word or converted to tagged PDF.</p>
+                <div class="button-row">
+                  <button type="submit">Generate accessible plan</button>
+                  <button type="button" class="secondary" id="downloadBtn">Download HTML document</button>
+                  <button type="button" class="secondary" id="printBtn">Print or save as PDF</button>
+                  <button type="button" class="warning" id="clearBtn">Clear form</button>
+                </div>
+                <p class="status" id="status" aria-live="polite"></p>
+              </section>
+            </div>
+          </section>
+        </form>
+
+        <section class="preview" aria-labelledby="preview-title">
+          <h2 id="preview-title" class="sr-only">Generated plan preview</h2>
+          <div id="preview" class="empty">Your accessible BC-aligned plan will appear here after you generate it.</div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <template id="doc-template">
+    <article class="doc" aria-labelledby="doc-heading">
+      <h2 id="doc-heading"></h2>
+      <section aria-labelledby="doc-context-title">
+        <h2 id="doc-context-title">Planning Context</h2>
+        <dl id="doc-context"></dl>
+      </section>
+      <section aria-labelledby="doc-source-title">
+        <h2 id="doc-source-title">Official BC Curriculum Source</h2>
+        <p id="doc-source"></p>
+      </section>
+      <section aria-labelledby="doc-alignment-title">
+        <h2 id="doc-alignment-title">BC Curriculum Alignment</h2>
+        <table>
+          <caption>Know-Do-Understand alignment from the official BC curriculum</caption>
+          <thead>
+            <tr>
+              <th scope="col">Curriculum element</th>
+              <th scope="col">Selected standards or planning notes</th>
+            </tr>
+          </thead>
+          <tbody id="doc-alignment"></tbody>
+        </table>
+      </section>
+      <section aria-labelledby="doc-design-title">
+        <h2 id="doc-design-title">Learning Design</h2>
+        <div id="doc-design"></div>
+      </section>
+      <section aria-labelledby="doc-assessment-title">
+        <h2 id="doc-assessment-title">Assessment Plan</h2>
+        <div id="doc-assessment"></div>
+      </section>
+      <section aria-labelledby="doc-access-title">
+        <h2 id="doc-access-title">Accessibility and Inclusion</h2>
+        <div id="doc-access"></div>
+      </section>
+    </article>
+  </template>
+
+  <script>
+    const form = document.querySelector("#planner-form");
+    const preview = document.querySelector("#preview");
+    const statusBox = document.querySelector("#status");
+    const downloadBtn = document.querySelector("#downloadBtn");
+    const printBtn = document.querySelector("#printBtn");
+    const clearBtn = document.querySelector("#clearBtn");
+    const today = new Date().toISOString().slice(0, 10);
+    document.querySelector("#accessDate").value = today;
+
+    const subjectLinks = {
+      "Applied Design, Skills and Technology": "https://curriculum.gov.bc.ca/curriculum/adst",
+      "Arts Education": "https://curriculum.gov.bc.ca/curriculum/arts-education",
+      "Career Education": "https://curriculum.gov.bc.ca/curriculum/career-education",
+      "English Language Arts": "https://curriculum.gov.bc.ca/curriculum/english-language-arts",
+      "Français langue première": "https://curriculum.gov.bc.ca/curriculum/francais-langue-premiere",
+      "Français langue seconde - immersion": "https://curriculum.gov.bc.ca/curriculum/francais-langue-seconde-immersion",
+      "Languages": "https://curriculum.gov.bc.ca/curriculum/languages",
+      "Mathematics": "https://curriculum.gov.bc.ca/curriculum/mathematics",
+      "Physical and Health Education": "https://curriculum.gov.bc.ca/curriculum/physical-health-education",
+      "Science": "https://curriculum.gov.bc.ca/curriculum/science",
+      "Social Studies": "https://curriculum.gov.bc.ca/curriculum/social-studies"
+    };
+
+    const fields = [
+      "planType", "grade", "subject", "duration", "title", "learners", "sourceUrl",
+      "accessDate", "sourceNote", "bigIdeas", "competencies", "contentStandards",
+      "coreCompetencies", "fppol", "goals", "questions", "sequence", "materials",
+      "vocabulary", "evidence", "criteria", "formative", "reflection", "udl",
+      "accessibleDocNotes"
+    ];
+
+    const checks = [
+      ["aHeadings", "Uses meaningful headings in order"],
+      ["aContrast", "Maintains strong colour contrast"],
+      ["aAlt", "Provides alt text for images and diagrams"],
+      ["aCaptions", "Captions audio or video materials"],
+      ["aLinks", "Uses descriptive link text"],
+      ["aTables", "Uses tables only for data, with headers"],
+      ["aFormats", "Provides multiple ways to access content"],
+      ["aAssistive", "Checks compatibility with assistive technology"]
+    ];
+
+    const saved = JSON.parse(localStorage.getItem("bcPlannerDraft") || "{}");
+    fields.forEach((id) => {
+      if (saved[id]) document.querySelector(`#${id}`).value = saved[id];
+    });
+    checks.forEach(([id]) => {
+      if (typeof saved[id] === "boolean") document.querySelector(`#${id}`).checked = saved[id];
+    });
+
+    form.addEventListener("input", () => {
+      const draft = collect();
+      localStorage.setItem("bcPlannerDraft", JSON.stringify(draft));
+    });
+
+    document.querySelector("#subject").addEventListener("change", (event) => {
+      const url = subjectLinks[event.target.value];
+      const source = document.querySelector("#sourceUrl");
+      if (url && !source.value) source.value = url;
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      renderDocument();
+      statusBox.textContent = "Plan generated. Review the preview and export when ready.";
+    });
+
+    downloadBtn.addEventListener("click", () => {
+      if (!preview.querySelector(".doc")) {
+        statusBox.textContent = "Generate the plan before downloading.";
+        return;
+      }
+      const plan = collect();
+      const html = buildStandaloneDocument(preview.querySelector(".doc").outerHTML, plan.title || "BC Curriculum Plan");
+      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${slug(plan.title || "bc-curriculum-plan")}.html`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      statusBox.textContent = "Accessible HTML document downloaded.";
+    });
+
+    printBtn.addEventListener("click", () => {
+      if (!form.reportValidity()) {
+        statusBox.textContent = "Complete the required fields before creating the PDF print view.";
+        return;
+      }
+
+      if (!preview.querySelector(".doc")) renderDocument();
+      const plan = collect();
+      const html = buildStandaloneDocument(preview.querySelector(".doc").outerHTML, plan.title || "BC Curriculum Plan");
+      printDocument(html);
+    });
+
+    clearBtn.addEventListener("click", () => {
+      form.reset();
+      document.querySelector("#accessDate").value = today;
+      preview.className = "empty";
+      preview.textContent = "Your accessible BC-aligned plan will appear here after you generate it.";
+      localStorage.removeItem("bcPlannerDraft");
+      statusBox.textContent = "Form cleared.";
+    });
+
+    function collect() {
+      const data = {};
+      fields.forEach((id) => {
+        data[id] = document.querySelector(`#${id}`).value.trim();
+      });
+      checks.forEach(([id]) => {
+        data[id] = document.querySelector(`#${id}`).checked;
+      });
+      return data;
+    }
+
+    function renderDocument() {
+      const data = collect();
+      const template = document.querySelector("#doc-template").content.cloneNode(true);
+      template.querySelector("#doc-heading").textContent = `${data.title}: ${data.planType}`;
+      addDefinitionList(template.querySelector("#doc-context"), [
+        ["Grade or course", data.grade],
+        ["Area of learning", data.subject],
+        ["Duration", data.duration],
+        ["Learner context", data.learners || "To be completed."]
+      ]);
+      const source = template.querySelector("#doc-source");
+      const sourceLink = document.createElement("a");
+      sourceLink.href = data.sourceUrl;
+      sourceLink.target = "_blank";
+      sourceLink.rel = "noopener";
+      sourceLink.textContent = data.sourceUrl;
+      source.append("Curriculum source: ", sourceLink, `. Accessed ${readableDate(data.accessDate)}.`);
+      if (data.sourceNote) source.append(` ${data.sourceNote}`);
+      addRows(template.querySelector("#doc-alignment"), [
+        ["Big Ideas / Understand", data.bigIdeas],
+        ["Curricular Competencies / Do", data.competencies],
+        ["Content / Know", data.contentStandards],
+        ["Core Competencies", data.coreCompetencies || "To be completed."],
+        ["First Peoples Principles of Learning", data.fppol || "Consider authentic, respectful connections where appropriate."]
+      ]);
+      addSections(template.querySelector("#doc-design"), [
+        ["Learning goals", data.goals],
+        ["Essential questions", data.questions || "To be completed."],
+        ["Learning sequence", data.sequence],
+        ["Materials and technologies", data.materials || "To be completed."],
+        ["Vocabulary and language supports", data.vocabulary || "To be completed."]
+      ]);
+      addSections(template.querySelector("#doc-assessment"), [
+        ["Assessment evidence", data.evidence],
+        ["Success criteria", data.criteria],
+        ["Formative assessment and feedback", data.formative || "To be completed."],
+        ["Student reflection", data.reflection || "To be completed."]
+      ]);
+      addAccessibility(template.querySelector("#doc-access"), data);
+      preview.className = "";
+      preview.replaceChildren(template);
+    }
+
+    function addDefinitionList(list, items) {
+      items.forEach(([term, description]) => {
+        const dt = document.createElement("dt");
+        const dd = document.createElement("dd");
+        dt.textContent = term;
+        dd.textContent = description;
+        list.append(dt, dd);
+      });
+    }
+
+    function addRows(body, rows) {
+      rows.forEach(([label, value]) => {
+        const tr = document.createElement("tr");
+        const th = document.createElement("th");
+        const td = document.createElement("td");
+        th.scope = "row";
+        th.textContent = label;
+        td.innerHTML = paragraphs(value);
+        tr.append(th, td);
+        body.append(tr);
+      });
+    }
+
+    function addSections(container, sections) {
+      sections.forEach(([heading, value]) => {
+        const section = document.createElement("section");
+        const h3 = document.createElement("h3");
+        const div = document.createElement("div");
+        h3.textContent = heading;
+        div.innerHTML = paragraphs(value);
+        section.append(h3, div);
+        container.append(section);
+      });
+    }
+
+    function addAccessibility(container, data) {
+      addSections(container, [
+        ["Universal Design for Learning and accommodations", data.udl || "To be completed."],
+        ["Accessible document notes", data.accessibleDocNotes || "Before sharing, run an accessibility checker, confirm heading order, verify link text, provide alt text, and export to a tagged PDF if PDF is required."]
+      ]);
+      const h3 = document.createElement("h3");
+      h3.textContent = "Accessibility checklist";
+      const ul = document.createElement("ul");
+      checks.forEach(([id, label]) => {
+        const li = document.createElement("li");
+        li.textContent = `${data[id] ? "Complete" : "Needs attention"}: ${label}`;
+        ul.append(li);
+      });
+      container.append(h3, ul);
+    }
+
+    function paragraphs(value) {
+      return escapeHtml(value || "To be completed.")
+        .split(/\n{2,}/)
+        .map((part) => `<p>${part.replace(/\n/g, "<br>")}</p>`)
+        .join("");
+    }
+
+    function escapeHtml(value) {
+      return value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function readableDate(value) {
+      if (!value) return "date not recorded";
+      return new Intl.DateTimeFormat("en-CA", { year: "numeric", month: "long", day: "numeric" }).format(new Date(`${value}T12:00:00`));
+    }
+
+    function slug(value) {
+      return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "bc-curriculum-plan";
+    }
+
+    function printDocument(html) {
+      let frame = document.querySelector("#printFrame");
+      if (frame) frame.remove();
+
+      frame = document.createElement("iframe");
+      frame.id = "printFrame";
+      frame.title = "Print-ready BC curriculum plan";
+      frame.style.position = "fixed";
+      frame.style.right = "0";
+      frame.style.bottom = "0";
+      frame.style.width = "1px";
+      frame.style.height = "1px";
+      frame.style.border = "0";
+      frame.style.opacity = "0";
+      frame.setAttribute("aria-hidden", "true");
+      document.body.append(frame);
+
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      doc.open();
+      doc.write(html);
+      doc.close();
+
+      statusBox.textContent = "Opening print dialog. Choose Save as PDF as the destination.";
+      setTimeout(() => {
+        try {
+          frame.contentWindow.focus();
+          frame.contentWindow.print();
+        } catch (error) {
+          statusBox.textContent = "The browser could not open the print dialog. Use Download HTML document, then print that file to PDF.";
+        }
+      }, 250);
+    }
+
+    function buildStandaloneDocument(content, title, autoPrint = false) {
+      const printControls = autoPrint ? `
+  <div class="print-actions" aria-label="Print controls">
+    <button type="button" onclick="window.print()">Print or save as PDF</button>
+    <p>In the print dialog, choose Save as PDF as the destination.</p>
+  </div>` : "";
+      const printScript = autoPrint ? `
+  <script>
+    window.addEventListener("load", () => {
+      window.focus();
+      setTimeout(() => window.print(), 250);
+    });
+  <\/script>` : "";
+      return `<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <style>
+    body { max-width: 920px; margin: 32px auto; padding: 0 20px; color: #162018; font-family: Atkinson Hyperlegible, Verdana, Arial, sans-serif; line-height: 1.55; }
+    h1, h2, h3 { line-height: 1.2; letter-spacing: 0; }
+    a { color: #0a4f40; text-decoration-thickness: 0.12em; text-underline-offset: 0.18em; }
+    button { min-height: 42px; border: 1px solid #0f6b55; border-radius: 6px; padding: 9px 13px; background: #0f6b55; color: #fff; font: inherit; font-weight: 800; cursor: pointer; }
+    button:focus-visible { outline: 3px solid #174ea6; outline-offset: 3px; }
+    .print-actions { margin-bottom: 24px; padding: 14px; border: 1px solid #cfd8d1; border-radius: 8px; background: #f2f7f0; }
+    .print-actions p { margin: 8px 0 0; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    caption { text-align: left; font-weight: 800; margin-bottom: 6px; }
+    th, td { border: 1px solid #7f8c83; padding: 8px; text-align: left; vertical-align: top; }
+    th { background: #edf4ed; }
+    dl { display: grid; grid-template-columns: minmax(160px, 220px) minmax(0, 1fr); gap: 8px 14px; }
+    dt { font-weight: 800; }
+    dd { margin: 0; }
+    @media (max-width: 700px) { dl { grid-template-columns: 1fr; } }
+    @media print { body { margin: 0 auto; } .print-actions { display: none; } }
+  </style>
+</head>
+<body>
+  ${printControls}
+  ${content.replace('<h2 id="doc-heading">', '<h1 id="doc-heading">').replace('</h2>', '</h1>')}
+  ${printScript}
+</body>
+</html>`;
+    }
+  </script>
+</body>
+</html>
