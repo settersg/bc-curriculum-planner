@@ -337,25 +337,59 @@
     .standards-picker {
       display: none;
       grid-column: 1 / -1;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 16px;
-      background: #f7f9fb;
+      border: 0;
+      border-radius: 0;
+      padding: 4px 0 8px;
+      background: #fff;
     }
 
     .standards-picker.is-visible {
       display: grid;
-      gap: 14px;
+      gap: 20px;
+    }
+
+    .curriculum-browser-header {
+      display: grid;
+      gap: 6px;
+    }
+
+    .curriculum-browser-header h3 {
+      margin: 0;
+      color: #333;
+      font-size: 2rem;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    #standardsPickerContent {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px 18px;
     }
 
     .standards-category {
-      border-top: 1px solid var(--line);
-      padding-top: 12px;
+      display: grid;
+      gap: 10px;
     }
 
-    .standards-category:first-of-type {
-      border-top: 0;
-      padding-top: 0;
+    .standards-category[data-category="coreCompetencies"],
+    .standards-category[data-category="bigIdeas"],
+    .standards-category[data-category="fppl"] {
+      grid-column: 1 / -1;
+    }
+
+    .standards-category h3 {
+      margin: 0;
+      color: #333;
+      font-size: 1.65rem;
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    .standards-category .category-subtitle {
+      margin: -4px 0 0;
+      color: #333;
+      font-size: 1rem;
     }
 
     .standards-actions {
@@ -368,8 +402,92 @@
     .standards-actions button {
       min-height: 36px;
       padding: 7px 10px;
+      border-color: #9bc3e6;
+      background: #9bc3e6;
+      color: #1f2f3d;
+      font-weight: 500;
+    }
+
+    #bc-alignment .standards-category .check-grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 0;
+    }
+
+    #bc-alignment .standards-category[data-category="coreCompetencies"] .check-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #bc-alignment .standards-category[data-category="bigIdeas"] .check-grid {
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    }
+
+    #bc-alignment .standards-category[data-category="fppl"] .check-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    #bc-alignment .standards-category .check-label {
+      min-height: 68px;
+      border: 1px solid #c5d1db;
+      border-radius: 4px;
+      background: #eef6fd;
+      color: #333;
+      font-weight: 400;
+      line-height: 1.35;
+    }
+
+    #bc-alignment .standards-category[data-category="bigIdeas"] .check-label {
+      align-items: center;
+      min-height: 118px;
+      text-align: center;
+      color: #0065a8;
+      text-decoration: underline;
+    }
+
+    #bc-alignment .standards-category[data-category="coreCompetencies"] .check-label {
+      min-height: 56px;
+      border-color: #009cde;
+      background: linear-gradient(90deg, #009cde 0 14px, #fff 14px 100%);
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    #bc-alignment .standards-category[data-category="coreCompetencies"] .check-label:nth-child(1) {
+      border-color: #f47b5b;
+      background: linear-gradient(90deg, #f47b5b 0 14px, #fff 14px 100%);
+    }
+
+    #bc-alignment .standards-category[data-category="coreCompetencies"] .check-label:nth-child(3) {
+      border-color: #55b66f;
+      background: linear-gradient(90deg, #55b66f 0 14px, #fff 14px 100%);
+    }
+
+    #bc-alignment .standards-category[data-category="competencies"],
+    #bc-alignment .standards-category[data-category="content"] {
+      align-self: start;
+      border: 1px solid #c5d1db;
+      border-radius: 4px;
+      padding: 14px;
       background: #fff;
-      color: var(--accent-strong);
+    }
+
+    #bc-alignment .standards-category[data-category="content"] {
+      background: #eef6fd;
+    }
+
+    #bc-alignment .standards-category[data-category="competencies"] .check-label,
+    #bc-alignment .standards-category[data-category="content"] .check-label {
+      border: 0;
+      background: transparent;
+      min-height: 0;
+      padding: 6px 0;
+    }
+
+    #bc-alignment .standards-category[data-category="competencies"] .check-label span::before,
+    #bc-alignment .standards-category[data-category="content"] .check-label span::before {
+      content: "◆";
+      margin-right: 8px;
+      color: #333;
     }
 
     .status {
@@ -473,7 +591,9 @@
     @media (max-width: 900px) {
       .layout,
       .grid,
-      .check-grid {
+      .check-grid,
+      #standardsPickerContent,
+      #bc-alignment .standards-category[data-category="coreCompetencies"] .check-grid {
         grid-template-columns: 1fr;
       }
 
@@ -644,10 +764,6 @@
                     Choose a grade, area, and course to load any standards currently built into this tool. Always verify against the official BC curriculum page linked above.
                   </div>
                   <section class="standards-picker" id="standardsPicker" aria-labelledby="standards-picker-title">
-                    <div>
-                      <h3 id="standards-picker-title">Choose Standards To Autofill</h3>
-                      <p class="hint">Select one or more items in each category. The matching planning field updates immediately, and you can still edit the text afterward.</p>
-                    </div>
                     <div id="standardsPickerContent"></div>
                   </section>
                   <label>Access date
@@ -1493,10 +1609,10 @@
     };
 
     const standardCategories = [
-      { key: "bigIdeas", title: "Big Ideas / Understand", target: "bigIdeas" },
-      { key: "competencies", title: "Curricular Competencies / Do", target: "competencies" },
-      { key: "content", title: "Content / Know", target: "contentStandards" },
       { key: "coreCompetencies", title: "Core Competencies", target: "coreCompetencies" },
+      { key: "bigIdeas", title: "Big Ideas", target: "bigIdeas" },
+      { key: "competencies", title: "Curricular Competency", subtitle: "Learning Standards", target: "competencies" },
+      { key: "content", title: "Content", subtitle: "Learning Standards", target: "contentStandards" },
       { key: "fppl", title: "First Peoples Principles of Learning", target: "fppol" }
     ];
 
@@ -1766,7 +1882,7 @@
       if (standard) {
         document.querySelector("#sourceUrl").value = standard.sourceUrl;
         document.querySelector("#sourceNote").value = standard.sourceNote;
-        renderStandardsPicker(standard);
+        renderStandardsPicker(standard, selected.textContent);
         standardsStatus.textContent = `Loaded selectable standards for ${selected.textContent} from the official BC Curriculum page. Choose one or more items below; selections update the planning fields automatically.`;
       } else {
         hideStandardsPicker();
@@ -1790,19 +1906,42 @@
       standardsStatus.textContent = "Choose a grade, area, and course to load any standards currently built into this tool. Always verify against the official BC curriculum page linked above.";
     }
 
-    function renderStandardsPicker(standard) {
+    function renderStandardsPicker(standard, courseTitle = "Selected Curriculum") {
       standardsPickerContent.replaceChildren();
+      const header = standardsPicker.querySelector(".curriculum-browser-header");
+      if (header) header.remove();
+
+      const browserHeader = document.createElement("div");
+      browserHeader.className = "curriculum-browser-header";
+      const courseHeading = document.createElement("h3");
+      courseHeading.id = "standards-picker-title";
+      courseHeading.textContent = courseTitle;
+      const courseHint = document.createElement("p");
+      courseHint.className = "hint";
+      courseHint.textContent = "Select curriculum items below. The matching planning fields update immediately, and you can still edit the text afterward.";
+      browserHeader.append(courseHeading, courseHint);
+      standardsPicker.prepend(browserHeader);
+
       standardCategories.forEach((category) => {
         const items = standard[category.key] || [];
         if (!items.length) return;
 
         const section = document.createElement("section");
         section.className = "standards-category";
+        section.dataset.category = category.key;
         section.setAttribute("aria-labelledby", `${category.key}-title`);
 
         const heading = document.createElement("h3");
         heading.id = `${category.key}-title`;
         heading.textContent = category.title;
+        section.append(heading);
+
+        if (category.subtitle) {
+          const subtitle = document.createElement("p");
+          subtitle.className = "category-subtitle";
+          subtitle.textContent = category.subtitle;
+          section.append(subtitle);
+        }
 
         const actions = document.createElement("div");
         actions.className = "standards-actions";
@@ -1838,7 +1977,7 @@
           list.append(label);
         });
 
-        section.append(heading, actions, list);
+        section.append(actions, list);
         standardsPickerContent.append(section);
       });
       standardsPicker.classList.add("is-visible");
@@ -1846,6 +1985,8 @@
 
     function hideStandardsPicker() {
       standardsPicker.classList.remove("is-visible");
+      const header = standardsPicker.querySelector(".curriculum-browser-header");
+      if (header) header.remove();
       standardsPickerContent.replaceChildren();
     }
 
