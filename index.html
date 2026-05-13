@@ -1455,6 +1455,11 @@
   }
 };
 
+    const standardAliases = {
+      "francais-langue-seconde-immersion|6|core": "fral|6|core",
+      "languages|6|core": "languages|6|core-french"
+    };
+
     const standardCategories = [
       { key: "bigIdeas", title: "Big Ideas / Understand", target: "bigIdeas" },
       { key: "competencies", title: "Curricular Competencies / Do", target: "competencies" },
@@ -1601,8 +1606,11 @@
       if (data.course) courseSelect.value = data.course;
       applyCourseSelection();
 
+      const selectedKey = courseSelect.selectedOptions[0]?.dataset.key;
+      const hasEmbeddedStandard = Boolean(getEmbeddedStandard(selectedKey));
       fields.forEach((id) => {
         const field = document.querySelector(`#${id}`);
+        if (hasEmbeddedStandard && (id === "sourceUrl" || id === "sourceNote")) return;
         if (field && Object.prototype.hasOwnProperty.call(data, id)) field.value = data[id];
       });
       checks.forEach(([id]) => {
@@ -1722,7 +1730,7 @@
 
       const source = document.querySelector("#sourceUrl");
       source.value = selected.dataset.url || source.value;
-      const standard = embeddedStandards[selected.dataset.key];
+      const standard = getEmbeddedStandard(selected.dataset.key);
       if (standard) {
         document.querySelector("#sourceUrl").value = standard.sourceUrl;
         document.querySelector("#sourceNote").value = standard.sourceNote;
@@ -1732,6 +1740,10 @@
         hideStandardsPicker();
         standardsStatus.textContent = "This course link has been set from the official BC Curriculum navigation. Embedded standards are not loaded yet, so paste the Big Ideas, Curricular Competencies, and Content from the linked page.";
       }
+    }
+
+    function getEmbeddedStandard(key) {
+      return embeddedStandards[key] || embeddedStandards[standardAliases[key]];
     }
 
     function clearLoadedStandards() {
