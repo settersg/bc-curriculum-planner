@@ -462,6 +462,77 @@
       background: linear-gradient(90deg, #55b66f 0 14px, #fff 14px 100%);
     }
 
+    .core-competency-card {
+      display: grid;
+      gap: 8px;
+    }
+
+    .core-competency-card .check-label {
+      margin: 0;
+    }
+
+    .core-detail {
+      border: 1px solid #c5d1db;
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    .core-detail summary {
+      min-height: 40px;
+      padding: 9px 11px;
+      color: var(--accent-strong);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .core-detail-body {
+      display: grid;
+      gap: 12px;
+      padding: 0 11px 12px;
+    }
+
+    .sub-competency {
+      display: grid;
+      gap: 7px;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+
+    .sub-competency:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .sub-competency h4 {
+      margin: 0;
+      color: #333;
+      font-size: 1rem;
+    }
+
+    .sub-competency-check {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      color: #333;
+      font-weight: 700;
+    }
+
+    .sub-competency-check input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+    }
+
+    .profile-list {
+      display: grid;
+      gap: 5px;
+      margin: 0;
+      padding-left: 1.15rem;
+      color: #333;
+      font-size: 0.9rem;
+    }
+
     #bc-alignment .standards-category[data-category="competencies"],
     #bc-alignment .standards-category[data-category="content"] {
       align-self: start;
@@ -1616,6 +1687,92 @@
       { key: "fppl", title: "First Peoples Principles of Learning", target: "fppol" }
     ];
 
+    const coreCompetencyDetails = {
+      "Communication": [
+        {
+          title: "Communicating",
+          profiles: [
+            "Profile 1: In a safe and supported environment, I respond meaningfully to communication from peers and adults.",
+            "Profile 2: In familiar settings, I communicate with peers and adults.",
+            "Profile 3: I communicate purposefully, using forms and strategies I have practiced.",
+            "Profile 4: I communicate clearly and purposefully, using a variety of forms appropriately.",
+            "Profile 5: I communicate confidently, using forms and strategies that show attention to my audience and purpose.",
+            "Profile 6: I communicate with intentional impact, in well-constructed forms that are effective for my audience and purpose."
+          ]
+        },
+        {
+          title: "Collaborating",
+          profiles: [
+            "Profile 1: In familiar situations, I can participate with others.",
+            "Profile 2: In familiar situations, I cooperate with others for specific purposes.",
+            "Profile 3: I contribute during group activities with peers and share roles and responsibilities to achieve goals.",
+            "Profile 4: I can confidently interact and build relationships with other group members to further shared goals.",
+            "Profile 5: I can facilitate group processes and encourage collective responsibility for our progress.",
+            "Profile 6: I can connect my group with other groups and broader networks for various purposes."
+          ]
+        }
+      ],
+      "Thinking": [
+        {
+          title: "Creative Thinking",
+          profiles: [
+            "Profile 1: I get ideas when I play.",
+            "Profile 2: I can get new ideas or build on or combine other people's ideas to create new things.",
+            "Profile 3: I can get new ideas in areas in which I have an interest and build my skills to make them work.",
+            "Profile 4: I can get new ideas or reinterpret others' ideas in novel ways.",
+            "Profile 5: I can think outside the box to get innovative ideas and persevere to develop them.",
+            "Profile 6: I can develop a body of creative work over time in an area of interest or passion."
+          ]
+        },
+        {
+          title: "Critical and Reflective Thinking",
+          profiles: [
+            "Profile 1: I can explore.",
+            "Profile 2: I can use evidence to make simple judgments.",
+            "Profile 3: I can ask questions and consider options; I can use observations, experience, and imagination to draw conclusions.",
+            "Profile 4: I can gather and combine new evidence with what I already know to develop reasoned conclusions, judgments, or plans.",
+            "Profile 5: I can evaluate and use well-chosen evidence to develop interpretations, identify alternatives, perspectives, and implications, and make judgments.",
+            "Profile 6: I can examine evidence from various perspectives to analyze and make well-supported judgments about complex issues."
+          ]
+        }
+      ],
+      "Personal and Social": [
+        {
+          title: "Personal Awareness and Responsibility",
+          profiles: [
+            "Profile 1: I can show a sense of accomplishment and joy, and express some wants, needs, and preferences.",
+            "Profile 2: I can initiate actions that bring me joy and satisfaction and recognize that I play a role in my well-being.",
+            "Profile 3: I can make choices that help me meet my wants and needs and increase my feelings of well-being.",
+            "Profile 4: I can recognize my strengths and take responsibility for using strategies to focus, manage stress, and accomplish my goals.",
+            "Profile 5: I recognize my value and advocate for my rights; I take responsibility for my choices, actions, and achievements.",
+            "Profile 6: I can identify my strengths and limits, find internal motivation, and act on opportunities for self-growth."
+          ]
+        },
+        {
+          title: "Positive Personal and Cultural Identity",
+          profiles: [
+            "Profile 1: I am aware of myself as different from others.",
+            "Profile 2: I am aware of different aspects of myself and can identify people, places, and things that are important to me.",
+            "Profile 3: I can describe different aspects of my identity.",
+            "Profile 4: I have pride in who I am and understand that I am a part of larger communities.",
+            "Profile 5: I understand that my identity is influenced by many aspects of my life and that my values shape my choices.",
+            "Profile 6: I can identify how my life experiences have contributed to who I am and recognize the evolving nature of my identity."
+          ]
+        },
+        {
+          title: "Social Awareness and Responsibility",
+          profiles: [
+            "Profile 1: I can be aware of others and my surroundings.",
+            "Profile 2: In familiar settings, I can interact with others and my surroundings respectfully.",
+            "Profile 3: I can interact with others and the environment respectfully and thoughtfully.",
+            "Profile 4: I can take purposeful action to support others and the environment.",
+            "Profile 5: I can advocate and take action for my communities and the natural world; I expect to make a difference.",
+            "Profile 6: I can initiate positive, sustainable change for others and the environment."
+          ]
+        }
+      ]
+    };
+
     const fields = [
       "teacherCandidate", "planDate", "practicumSchool", "planType", "grade", "subject", "course", "duration", "title", "learners", "sourceUrl",
       "accessDate", "sourceNote", "bigIdeas", "competencies", "contentStandards",
@@ -1961,26 +2118,90 @@
 
         const list = document.createElement("div");
         list.className = "check-grid";
-        items.forEach((item, index) => {
-          const label = document.createElement("label");
-          label.className = "check-label";
-          const input = document.createElement("input");
-          input.type = "checkbox";
-          input.dataset.category = category.key;
-          input.dataset.target = category.target;
-          input.value = item;
-          input.id = `${category.key}-${index}`;
-          input.addEventListener("change", () => applySelectedStandards(category, true));
-          const span = document.createElement("span");
-          span.textContent = item;
-          label.append(input, span);
-          list.append(label);
-        });
+        if (category.key === "coreCompetencies") {
+          renderCoreCompetencyCards(list, category, items);
+        } else {
+          items.forEach((item, index) => {
+            const label = document.createElement("label");
+            label.className = "check-label";
+            const input = createStandardCheckbox(category, item, index);
+            const span = document.createElement("span");
+            span.textContent = item;
+            label.append(input, span);
+            list.append(label);
+          });
+        }
 
         section.append(actions, list);
         standardsPickerContent.append(section);
       });
       standardsPicker.classList.add("is-visible");
+    }
+
+    function renderCoreCompetencyCards(list, category, items) {
+      items.forEach((item, index) => {
+        const coreName = item.split(":")[0].trim();
+        const card = document.createElement("div");
+        card.className = "core-competency-card";
+
+        const label = document.createElement("label");
+        label.className = "check-label";
+        const input = createStandardCheckbox(category, item, index);
+        const span = document.createElement("span");
+        span.textContent = item;
+        label.append(input, span);
+
+        const details = document.createElement("details");
+        details.className = "core-detail";
+        const summary = document.createElement("summary");
+        summary.textContent = "Sub-competencies and profiles";
+        details.append(summary, buildCoreDetails(coreName, category));
+
+        card.append(label, details);
+        list.append(card);
+      });
+    }
+
+    function createStandardCheckbox(category, item, index) {
+      const input = document.createElement("input");
+      input.type = "checkbox";
+      input.dataset.category = category.key;
+      input.dataset.target = category.target;
+      input.value = item;
+      input.id = `${category.key}-${String(index).replace(/[^A-Za-z0-9_-]+/g, "-")}`;
+      input.addEventListener("change", () => applySelectedStandards(category, true));
+      return input;
+    }
+
+    function buildCoreDetails(coreName, category) {
+      const body = document.createElement("div");
+      body.className = "core-detail-body";
+      const subCompetencies = coreCompetencyDetails[coreName] || [];
+      subCompetencies.forEach((subCompetency, index) => {
+        const section = document.createElement("section");
+        section.className = "sub-competency";
+        const label = document.createElement("label");
+        label.className = "sub-competency-check";
+        const input = createStandardCheckbox(
+          category,
+          `${coreName}: ${subCompetency.title}`,
+          `${coreName}-${index}`
+        );
+        const labelText = document.createElement("span");
+        labelText.textContent = subCompetency.title;
+        label.append(input, labelText);
+
+        const list = document.createElement("ol");
+        list.className = "profile-list";
+        subCompetency.profiles.forEach((profile) => {
+          const item = document.createElement("li");
+          item.textContent = profile;
+          list.append(item);
+        });
+        section.append(label, list);
+        body.append(section);
+      });
+      return body;
     }
 
     function hideStandardsPicker() {
