@@ -25,7 +25,7 @@ http://127.0.0.1:58942/
 5. Include the official source URL and access date.
 6. Generate the plan and export it as accessible HTML.
 
-The app includes a starter embedded dataset for Grade 6 Science. Other selections set the official BC Curriculum source link and keep the standards fields editable for teacher verification.
+The app includes embedded selectable standards for the main Grade 6 curriculum pages, including ADST, Arts Education, Career Education, English Language Arts, Français langue première, Français langue seconde - immersion, Mathematics, Physical and Health Education, Science, Social Studies, and Core French. Other selections set the official BC Curriculum source link and keep the standards fields editable for teacher verification.
 
 ## Saving Progress
 

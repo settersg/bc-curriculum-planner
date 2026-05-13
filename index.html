@@ -819,7 +819,7 @@
       { name: "Career Education", slug: "career-education", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
       { name: "English Language Arts", slug: "english-language-arts", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
       { name: "Français langue première", slug: "francais-langue-premiere", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
-      { name: "Français langue seconde - immersion", slug: "francais-langue-seconde-immersion", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "Français langue seconde - immersion", slug: "fral", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
       { name: "Languages", slug: "languages", grades: ["5", "6", "7", "8", "9", "10", "11", "12"] },
       { name: "Mathematics", slug: "mathematics", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
       { name: "Physical and Health Education", slug: "physical-health-education", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] },
@@ -847,56 +847,613 @@
       ],
       "Career Education|10": [["career-life-education", "Career-Life Education"]],
       "Career Education|11": [["courses", "Career-Life Connections"]],
-      "Career Education|12": [["courses", "Career-Life Connections"]]
+      "Career Education|12": [["courses", "Career-Life Connections"]],
+      "Languages|6": [["core-french", "Core French 6"]]
     };
 
     const embeddedStandards = {
-      "science|6|core": {
-        sourceUrl: "https://curriculum.gov.bc.ca/curriculum/science/6/core",
-        sourceNote: "Official BC Curriculum: Science 6. Verify the selected standards against the linked page.",
-        bigIdeas: [
-          "Multicellular organisms rely on internal systems to survive, reproduce, and interact with their environment.",
-          "Everyday materials are often mixtures.",
-          "Newton's three laws of motion describe the relationship between force and motion.",
-          "The solar system is part of the Milky Way, which is one of billions of galaxies."
-        ],
-        competencies: [
-          "Questioning and predicting: Demonstrate a sustained curiosity about a scientific topic or problem of personal interest; make observations in familiar or unfamiliar contexts; identify questions to answer or problems to solve through scientific inquiry; make predictions about the findings of their inquiry.",
-          "Planning and conducting: With support, plan appropriate investigations; decide which variable should be changed and measured for a fair test; choose appropriate data to collect; observe, measure, and record data using appropriate tools, including digital technologies; use equipment and materials safely, identifying potential risks.",
-          "Processing and analyzing data and information: Experience and interpret the local environment; identify First Peoples perspectives and knowledge as sources of information; construct and use tables, graphs, and digital technologies to represent patterns or relationships; identify patterns and connections in data; compare data with predictions and develop explanations for results; demonstrate openness to new ideas and consideration of alternatives.",
-          "Evaluating: Evaluate whether investigations were fair tests; identify possible sources of error; suggest improvements; identify some assumptions in secondary sources; demonstrate understanding and appreciation of evidence; identify some social, ethical, and environmental implications of findings.",
-          "Applying and innovating: Contribute to care for self, others, and community; co-operatively design projects; transfer and apply learning to new situations; generate and introduce new or refined ideas when problem solving.",
-          "Communicating: Communicate ideas, explanations, and processes in a variety of ways; express and reflect on personal, shared, or others' experiences of place."
-        ],
-        content: [
-          "The basic structures and functions of body systems: digestive, musculo-skeletal, respiratory, circulatory.",
-          "Solutions and solubility.",
-          "Heterogeneous mixtures.",
-          "Mixtures: separated using a difference in component properties.",
-          "Newton's three laws of motion.",
-          "Effects of balanced and unbalanced forces in daily physical activities.",
-          "Force of gravity.",
-          "The overall scale, structure, and age of the universe.",
-          "The position, motion, and components of our solar system in our galaxy."
-        ],
-        coreCompetencies: [
-          "Communication: Students communicate ideas, explanations, and processes in a variety of ways.",
-          "Thinking: Students develop questions, make predictions, analyze evidence, and consider alternatives.",
-          "Personal and Social: Students contribute to care for self, others, community, and place."
-        ],
-        fppl: [
-          "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
-          "Learning is holistic, reflexive, reflective, experiential, and relational.",
-          "Learning involves recognizing the consequences of one's actions.",
-          "Learning involves generational roles and responsibilities.",
-          "Learning recognizes the role of Indigenous knowledge.",
-          "Learning is embedded in memory, history, and story.",
-          "Learning involves patience and time.",
-          "Learning requires exploration of one's identity.",
-          "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
-        ]
-      }
-    };
+  "adst|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/adst/6/core",
+    "sourceNote": "Official BC Curriculum: Applied Design, Skills and Technologies 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "Design can be responsive to identified needs.",
+      "Complex tasks require the acquisition of additional skills.",
+      "Complex tasks may require multiple tools and technologies."
+    ],
+    "competencies": [
+      "Understanding context; Empathize with potential users to find issues and uncover needs and potential design opportunities",
+      "Defining; Choose a design opportunity; Identify key features or potential users and their requirements; Identify criteria for success and any constraints",
+      "Ideating; Generate potential ideas and add to others’ ideas; Screen ideas against criteria and constraints; Evaluate personal, social, and environmental impacts and ethical considerations; Choose an idea to pursue",
+      "Prototyping; Identify and use sources of information; Develop a plan that identifies key stages and resources; Explore and test a variety of materials for effective use; Construct a first version of the product or a prototype, as appropriate, making changes to tools, materials, and procedures as needed; Record iterations of prototyping",
+      "Testing; Test the first version of the product or the prototype; Gather peer and/or user and/or expert feedback and inspiration; Make changes, troubleshoot, and test again",
+      "Making; Identify and use appropriate tools, technologies, and materials for production; Make a plan for production that includes key stages, and carry it out, making changes as needed; Use materials in ways that minimize waste",
+      "Sharing; Decide on how and with whom to share their product; Demonstrate their product and describe their process, using appropriate terminology and providing reasons for their selected solution and modifications; Evaluate their product against their criteria and explain how it contributes to the individual, family, community, and/or environment; Reflect on their design thinking and processes, and evaluate their ability to work effectively both as individuals and collaboratively in a group, including their ability to share and maintain an efficient co-operative work space; Identify new design issues",
+      "Demonstrate an awareness of precautionary and emergency safety procedures in both physical and digital environments",
+      "Identify and evaluate the skills and skill levels needed, individually or as a group, in relation to a specific task, and develop them as needed",
+      "Select, and as needed learn about, appropriate tools and technologies to extend their capability to complete a task",
+      "Identify the personal, social, and environmental impacts, including unintended negative consequences, of the choices they make about technology use",
+      "Identify how the land, natural resources, and culture influence the development and use of tools and technologies"
+    ],
+    "content": [
+      "Computational Thinking; simple algorithms that reflect computational thinking; visual representations of problems and data; evolution of programming languages; visual programming",
+      "Computers and Communications Devices; computer system architecture, including hardware and software, network infrastructure (local), intranet/Internet, and personal communication devices; strategies for identifying and troubleshooting simple hardware and software problems; function of input and output devices, including 3D printing and adaptive technologies for those with special needs; ergonomics in use of computers and computing devices; effective and efficient keyboarding techniques",
+      "Digital Literacy; Internet safety; digital self-image, citizenship, relationships, and communication; legal and ethical considerations, including creative credit and copyright, and cyberbullying; methods for personal media management; search techniques, how search results are selected and ranked, and criteria for evaluating search results; strategies to identify personal learning networks",
+      "Drafting; technical drawing, including sketching techniques and manual drafting techniques; elements of plans and drawings; simple computer-aided drafting programs",
+      "Entrepreneurship and Marketing; role of entrepreneurship in designing and making products and services; market niche; branding of products, services, institutions, or places; pricing product/service, including decision to seek profit or break even; role of basic financial record-keeping and budgeting",
+      "Food Studies; basic food handling and simple preparation techniques and equipment; factors in ingredient use, including balanced eating/nutrition, function, and dietary restrictions; factors that influence food choices, including cost, availability, and family and cultural influences",
+      "Media Arts; digital and non-digital media, and their distinguishing characteristics and uses; techniques for using images, sounds, and text to communicate information, settings, ideas, and story structure; media technologies and techniques to capture, edit, and manipulate images, sounds, and text for specific purposes; influences of digital media for the purpose of communication and self-expression",
+      "Metalwork; characteristics and uses of metals; metalworking techniques and processes using hand tools; metals as a non-renewable resource",
+      "Power Technology; power is the rate at which energy is transformed; forms of energy; energy is conserved; devices that transform energy",
+      "Robotics; a robot is a machine capable of carrying out a complex series of actions automatically; uses of robotics; main components of robots: sensors, control systems, and effectors; various ways that objects can move; programming and logic for robotics components; various platforms for robotics",
+      "Textiles; range of uses of textiles; variety of textile materials; hand construction techniques for producing and/or repairing textile items; consumer concerns that influence textile choices, including availability, cost, function (e.g., waterproof), and textile care",
+      "Woodwork; ways in which wood is used in local cultural and economic contexts; characteristics of wood as a material; woodworking techniques and basic joinery using hand tools"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "arts-education|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/arts-education/6/core",
+    "sourceNote": "Official BC Curriculum: Arts Education 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "Engaging in creative expression and experiences expands people’s sense of identity and community.",
+      "Artistic expressions differ across time and place.",
+      "Dance, drama, music, and visual arts are each unique languages for creating and communicating.",
+      "Experiencing art is a means to develop empathy for others’ perspectives and experiences."
+    ],
+    "competencies": [
+      "Intentionally select, apply, combine, and arrange artistic elements, processes, materials, movements, technologies, tools, techniques, and environments in art making",
+      "Create artistic works collaboratively and as an individual using ideas inspired by imagination, inquiry, experimentation, and purposeful play",
+      "Explore relationships between identity, place, culture, society, and belonging through the arts",
+      "Demonstrate an understanding and appreciation of personal, social, cultural, historical, and environmental contexts in relation to the arts",
+      "Research, describe, interpret and evaluate how artists (dancers, actors, musicians, and visual artists) use processes, materials, movements, technologies, tools, techniques, and environments in the arts",
+      "Develop and refine ideas, processes, and technical skills in a variety of art forms to improve the quality of artistic creations",
+      "Reflect on works of art and creative processes to understand artists’ intentions",
+      "Interpret creative works using knowledge and skills from various areas of learning",
+      "Examine relationships between the arts and the wider world",
+      "Adapt learned skills, understandings, and processes for use in new contexts and for different purposes and audiences",
+      "Interpret and communicate ideas using symbols and elements to express meaning through the arts",
+      "Take creative risks to express feelings, ideas, and experiences",
+      "Express, feelings, ideas, and experiences through the arts",
+      "Describe, interpret and respond to works of art and explore artists’ intent",
+      "Experience, document and present creative works in a variety of ways",
+      "Demonstrate increasingly sophisticated application and/or engagement of curricular content"
+    ],
+    "content": [
+      "purposeful application of elements and principles to create meaning in the arts, including but not limited to:; dance: body, space, dynamics (dance), time, relationships, form, and movement principles; drama: character, time, place, plot, tension, mood, focus, contrast; music: beat/pulse, metre, duration, rhythm (music), tempo, pitch, timbre, dynamics (music), form (music), texture; visual arts: elements of design: line, shape, space, texture, colour, form (visual arts), value; principles of design: pattern, repetition, balance, contrast, emphasis, rhythm (visual arts), variety, unity, harmony",
+      "processes, materials, movements, technologies, tools, strategies, and techniques to support creative works",
+      "choreographic devices",
+      "a variety of dramatic forms",
+      "notation in music and dance to represent sounds, ideas, movement, elements, and actions",
+      "image development strategies",
+      "symbolism and metaphor to explore ideas and perspective",
+      "traditional and contemporary Aboriginal arts and arts-making processes",
+      "a variety of national and international works of art and artistic traditions from diverse cultures, communities, times, and places",
+      "personal and collective responsibility associated with creating, experiencing, or presenting in a safe learning environment"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "career-education|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/career-education/6/core",
+    "sourceNote": "Official BC Curriculum: Career Education 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "Our attitudes toward careers are influenced by our view of ourselves as well as by our friends, family, and community.",
+      "Our personal digital identity forms part of our public identity.",
+      "Practising respectful, ethical, inclusive behaviour prepares us for the expectations of the workplace.",
+      "Leadership represents good planning, goal-setting, and collaboration.",
+      "Safe environments depend on everyone following safety rules.",
+      "New experiences, both within and outside of school, expand our career skill set and options."
+    ],
+    "competencies": [
+      "Recognize their personal preferences, skills, strengths, and abilities and connect them to possible career choices",
+      "Question self and others about how their personal public identity can have both positive and negative consequences",
+      "Examine the importance of service learning and the responsibility of individuals to contribute to the community and the world",
+      "Appreciate the importance of respect, inclusivity, and other positive behaviours in diverse, collaborative learning, and work environments",
+      "Question self and others about the reciprocal relationship between self and community",
+      "Use entrepreneurial and innovative thinking to solve problems",
+      "Demonstrate leadership skills through collaborative activities in the school and community",
+      "Demonstrate safety skills in an experiential learning environment",
+      "Set realistic short- and longer-term learning goals, define a path, and monitor progress",
+      "Recognize the influence of peers, family, and communities on career choices and attitudes toward work",
+      "Appreciate the value of new experiences, innovative thinking and risk taking in broadening their career options",
+      "Explore volunteer opportunities and other new experiences outside school and recognize their value in career development",
+      "Apply project management skills to support career development"
+    ],
+    "content": [
+      "Personal Development; goal-setting strategies; self-assessment; project management; leadership; problem-solving and decision-making strategies",
+      "Connections to Community; local and global needs and opportunities; cultural and social awareness; global citizenship; volunteer opportunities",
+      "Life and Career Plan; factors affecting types of jobs in the community; technology in learning and working; role of mentors, family, community, school, and personal network in decision making"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "english-language-arts|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/english-language-arts/6/core",
+    "sourceNote": "Official BC Curriculum: English Language Arts 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "Language and text can be a source of creativity and joy.",
+      "Exploring stories and other texts helps us understand ourselves and make connections to others and to the world.",
+      "Exploring and sharing multiple perspectives extends our thinking.",
+      "Developing our understanding of how language works allows us to use it purposefully.",
+      "Questioning what we hear, read, and view contributes to our ability to be educated and engaged citizens."
+    ],
+    "competencies": [
+      "Access information and ideas for diverse purposes and from a variety of sources and evaluate their relevance, accuracy, and reliability",
+      "Apply appropriate strategies to comprehend written, oral, and visual texts, guide inquiry, and extend thinking",
+      "Synthesize ideas from a variety of sources to build understanding",
+      "Recognize and appreciate how different features, forms, and genres of texts reflect various purposes, audiences, and messages",
+      "Think critically, creatively, and reflectively to explore ideas within, between, and beyond texts",
+      "Recognize and identify the role of personal, social, and cultural contexts, values, and perspectives in texts",
+      "Recognize how language constructs personal, social, and cultural identity",
+      "Construct meaningful personal connections between self, text, and world",
+      "Respond to text in personal, creative, and critical ways",
+      "Understand how literary elements, techniques, and devices enhance and shape meaning",
+      "Recognize an increasing range of text structures and how they contribute to meaning",
+      "Recognize and appreciate the role of story, narrative, and oral tradition in expressing First Peoples perspectives, values, beliefs, and points of view",
+      "Exchange ideas and viewpoints to build shared understanding and extend thinking",
+      "Use writing and design processes to plan, develop, and create engaging and meaningful literary and informational texts for a variety of purposes and audiences",
+      "Assess and refine texts to improve their clarity, effectiveness, and impact according to purpose, audience, and message",
+      "Use an increasing repertoire of conventions of Canadian spelling, grammar, and punctuation",
+      "Use and experiment with oral storytelling processes",
+      "Select and use appropriate features, forms, and genres according to audience, purpose, and message",
+      "Transform ideas and information to create original texts"
+    ],
+    "content": [
+      "Story/text; forms, functions, and genres of text; text features; literary elements; literary devices; techniques of persuasion",
+      "Strategies and processes; reading strategies; oral language strategies; metacognitive strategies; writing processes",
+      "Language features, structures, and conventions; features of oral language; paragraphing; language varieties; sentence structure and grammar; conventions; presentation techniques"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "francais-langue-premiere|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/francais-langue-premiere/6/core",
+    "sourceNote": "Official BC Curriculum: Français langue première 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "In illustrated texts, pictures and words complement one another, since the meaning of a picture can be different from that of words.",
+      "The plot of a story is defined through the decisions and actions of the characters, and the context in which they find themselves.",
+      "Texts enable students to consolidate or transform their perceptions.",
+      "Aboriginal narratives are part of Canada’s Francophone history and culture.",
+      "Communicating in French helps to develop a sense of belonging to a Francophone community."
+    ],
+    "competencies": [
+      "Identify the characteristics of a text and the genre to which it belongs.",
+      "Analyze the relationship between a text and image to better understand the author’s intentions.",
+      "Analyze the symbolic value of words and images.",
+      "Make connections between different characters, their respective roles in the plot, and their motivations.",
+      "Identify the values and world view presented in texts.",
+      "Identify cultural elements found in different texts.",
+      "Recognize the existence of different registers, dialects, and accents.",
+      "Use words, images, and prosody to express emotions and enrich writing.",
+      "Read and interpret a variety of poetic texts fluently and with intonation to convey the author’s intention.",
+      "Identify and reformulate the main ideas in a text to verify and deepen one’s understanding.",
+      "Explore the potential of language by playing with words to transform a text.",
+      "Write texts following the characteristics of the types of texts and language conventions studied.",
+      "Revise, correct, and improve own texts, being mindful of the quality of form and expression."
+    ],
+    "content": [
+      "text organization:; narrative structure; actantial narrative schema; paragraph structure",
+      "literary elements:; characteristics of the comic book; characteristics of the youth novel; characteristics of poetry; characteristics of image deciphering; stylistic devices; registers of language",
+      "language elements:; information reiteration; verb moods and tenses associated with the genres studied",
+      "strategies studied:; communication and socialization; reading; writing"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "fral|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/fral/6/core",
+    "sourceNote": "Official BC Curriculum: Français langue seconde - immersion 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "The impact of a message largely depends on the author’s word choices and style.",
+      "Discovering other cultures encourages us to examine our own mores and values.",
+      "Asking questions allows us to connect ideas and develop our ability to think critically.",
+      "The author transports the audience to a unique world that is a reflection of the former’s experiences and imagination.",
+      "Reflecting on the form of the language improves the coherence of the message."
+    ],
+    "competencies": [
+      "Interpret and respond to a text independently",
+      "Identify cultural and historical elements in Francophone and Aboriginal texts, and compare these with one’s own cultural and historical reference points",
+      "Formulate hypotheses with respect to a text, and adjust these hypotheses",
+      "Distinguish between what is real and what is fictitious in the genres under study in order to highlight the imaginary elements",
+      "Identify spatial and temporal indicators in a text in order to imagine the setting of the action and explain the events depicted",
+      "Identify the different ways of telling a story and how this affects the audience",
+      "Express views in a manner that recognizes the value of other people’s viewpoints, in order to broaden one’s own perspective and that of peers",
+      "Reformulate the main idea in a text",
+      "Develop imagination through creative writing",
+      "Organize and draft a coherent, well-structured text",
+      "Revise one’s own work by referring to the spelling and grammar rules learned"
+    ],
+    "content": [
+      "communication strategies:; active listening; clarification; explanation; consideration of other people’s perspectives",
+      "cultural and historical elements",
+      "literary elements:; characteristics of the youth novel; characteristics of the legend; elements of oral tradition in Aboriginal texts",
+      "text organization:; narrative structure; structure of legends; structure of informational texts; transitions between ideas; spatial and temporal indicators",
+      "language elements:; agreement of tenses; the roots of words and affixes",
+      "revision strategies"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "mathematics|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/mathematics/6/core",
+    "sourceNote": "Official BC Curriculum: Mathematics 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "Mixed numbers and decimal numbers represent quantities that can be decomposed into parts and wholes.",
+      "Computational fluency and flexibility with numbers extend to operations with whole numbers and decimals.",
+      "Linear relations can be identified and represented using expressions with variables and line graphs and can be used to form generalizations.",
+      "Properties of objects and shapes can be described, measured, and compared using volume, area, perimeter, and angles.",
+      "Data from the results of an experiment can be used to predict the theoretical probability of an event and to compare and interpret."
+    ],
+    "competencies": [
+      "Use logic and patterns to solve puzzles and play games",
+      "Use reasoning and logic to explore, analyze, and apply mathematical ideas",
+      "Estimate reasonably",
+      "Demonstrate and apply mental math strategies",
+      "Use tools or technology to explore and create patterns and relationships, and test conjectures",
+      "Model mathematics in contextualized experiences",
+      "Apply multiple strategies to solve problems in both abstract and contextualized situations",
+      "Develop, demonstrate, and apply mathematical understanding through play, inquiry, and problem solving",
+      "Visualize to explore mathematical concepts",
+      "Engage in problem-solving experiences that are connected to place, story, cultural practices, and perspectives relevant to local First Peoples communities, the local community, and other cultures",
+      "Use mathematical vocabulary and language to contribute to mathematical discussions",
+      "Explain and justify mathematical ideas and decisions",
+      "Communicate mathematical thinking in many ways",
+      "Represent mathematical ideas in concrete, pictorial, and symbolic forms",
+      "Reflect on mathematical thinking",
+      "Connect mathematical concepts to each other and to other areas and personal interests",
+      "Use mathematical arguments to support personal choices",
+      "Incorporate First Peoples worldviews and perspectives to make connections to mathematical concepts"
+    ],
+    "content": [
+      "small to large numbers (thousandths to billions)",
+      "multiplication and division facts to 100 (developing computational fluency)",
+      "order of operations with whole numbers",
+      "factors and multiples — greatest common factor and least common multiple",
+      "improper fractions and mixed numbers",
+      "introduction to ratios",
+      "whole-number percents and percentage discounts",
+      "multiplication and division of decimals",
+      "increasing and decreasing patterns, using expressions, tables, and graphs as functional relationships",
+      "one-step equations with whole-number coefficients and solutions",
+      "perimeter of complex shapes",
+      "area of triangles, parallelograms, and trapezoids",
+      "angle measurement and classification",
+      "volume and capacity",
+      "triangles",
+      "combinations of transformations",
+      "line graphs",
+      "single-outcome probability, both theoretical and experimental",
+      "financial literacy — simple budgeting and consumer math"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "physical-health-education|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/physical-health-education/6/core",
+    "sourceNote": "Official BC Curriculum: Physical and Health Education 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "Daily physical activity enables us to practice skillful movement and helps us develop personal fitness.",
+      "Physical literacy and fitness contribute to our success in and enjoyment of physical activity.",
+      "We experience many changes in our lives that influence how we see ourselves and others.",
+      "Healthy choices influence our physical, emotional, and mental well-being.",
+      "Learning about similarities and differences in individuals and groups influences community health."
+    ],
+    "competencies": [
+      "Develop, refine, and apply fundamental movement skills in a variety of physical activities and environments",
+      "Develop and apply a variety of movement concepts and strategies in different physical activities; What strategies can you use to gain some type of advantage in a game situation?",
+      "Apply methods of monitoring and adjusting exertion levels in physical activity",
+      "Develop and demonstrate safety, fair play, and leadership in physical activities",
+      "Identify and describe preferred types of physical activity",
+      "Participate daily in physical activity designed to enhance and maintain health components of fitness",
+      "Describe how students’ participation in physical activities at school, at home, and in the community can influence their health and fitness",
+      "Explore and plan food choices to support personal health and well-being",
+      "Describe the impacts of personal choices on health and well-being",
+      "Analyze health messages and possible intentions to influence behaviour",
+      "Identify, apply, and reflect on strategies used to pursue personal healthy-living goals",
+      "Identify and describe strategies for avoiding and/or responding to potentially unsafe, abusive, or exploitive situations",
+      "Describe and assess strategies for responding to discrimination, stereotyping, and bullying",
+      "Describe and apply strategies for developing and maintaining healthy relationships",
+      "Explore strategies for promoting the health and well-being of the school and community",
+      "Describe and assess strategies for promoting mental well-being, for self and others",
+      "Describe and assess strategies for managing problems related to mental well-being and substance use, for others",
+      "Explore and describe strategies for managing physical, emotional, and social changes during puberty and adolescence",
+      "Explore and describe how personal identities adapt and change in different settings and situations"
+    ],
+    "content": [
+      "proper technique for fundamental movement skills, including non-locomotor, locomotor, and manipulative skills",
+      "movement concepts and strategies",
+      "ways to monitor and adjust physical exertion levels",
+      "how to participate in different types of physical activities, including individual and dual activities, rhythmic activities, and games",
+      "training principles to enhance personal fitness levels, including the FITT principle and the SAID principle",
+      "influences on food choices; access to locally grown food; access to seasonal foods; family traditions",
+      "practices that reduce the risk of contracting sexually transmitted infections and life-threatening communicable diseases",
+      "sources of health information",
+      "basic principles for responding to emergencies",
+      "strategies to protect themselves and others from potential abuse, exploitation, and harm in a variety of settings",
+      "consequences of bullying, stereotyping, and discrimination",
+      "strategies for managing personal and social risks related to psychoactive substances and potentially addictive behaviours",
+      "physical, emotional, and social changes that occur during puberty and adolescence",
+      "influences on individual identity, including sexual identity, gender, values, and beliefs"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "science|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/science/6/core",
+    "sourceNote": "Official BC Curriculum: Science 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "Multicellular organisms rely on internal systems to survive, reproduce, and interact with their environment.",
+      "Everyday materials are often mixtures.",
+      "Newton’s three laws of motion describe the relationship between force and motion.",
+      "The solar system is part of the Milky Way, which is one of billions of galaxies."
+    ],
+    "competencies": [
+      "Questioning and predicting",
+      "Demonstrate a sustained curiosity about a scientific topic or problem of personal interest",
+      "Make observations in familiar or unfamiliar contexts",
+      "Identify questions to answer or problems to solve through scientific inquiry",
+      "Make predictions about the findings of their inquiry",
+      "With support, plan appropriate investigations to answer their questions or solve problems they have identified",
+      "Decide which variable should be changed and measured for a fair test",
+      "Choose appropriate data to collect to answer their questions",
+      "Observe, measure, and record data, using appropriate tools, including digital technologies",
+      "Use equipment and materials safely, identifying potential risks",
+      "Experience and interpret the local environment",
+      "Identify First Peoples perspectives and knowledge as sources of information",
+      "Construct and use a variety of methods, including tables, graphs, and digital technologies, as appropriate, to represent patterns or relationships in data",
+      "Identify patterns and connections in data",
+      "Compare data with predictions and develop explanations for results",
+      "Demonstrate an openness to new ideas and consideration of alternatives",
+      "Evaluate whether their investigations were fair tests",
+      "Identify possible sources of error",
+      "Suggest improvements to their investigation methods",
+      "Identify some of the assumptions in secondary sources",
+      "Demonstrate an understanding and appreciation of evidence",
+      "Identify some of the social, ethical, and environmental implications of the findings from their own and others’ investigations",
+      "Contribute to care for self, others, and community through personal or collaborative approaches",
+      "Co-operatively design projects",
+      "Transfer and apply learning to new situations",
+      "Generate and introduce new or refined ideas when problem solving",
+      "Communicate ideas, explanations, and processes in a variety of ways",
+      "Express and reflect on personal, shared, or others’ experiences of place"
+    ],
+    "content": [
+      "the basic structures and functions of body systems:; excretory; reproductive; hormonal; nervous",
+      "heterogeneous mixtures",
+      "mixtures:; separated using a difference in component properties; local First Peoples knowledge of separation and extraction methods",
+      "Newton’s three laws of motion",
+      "effects of balanced and unbalanced forces in daily physical activities",
+      "force of gravity",
+      "the overall scale, structure, and age of the universe",
+      "the position, motion, and components of our solar system in our galaxy"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "social-studies|6|core": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/social-studies/6/core",
+    "sourceNote": "Official BC Curriculum: Social Studies 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "Economic self-interest can be a significant cause of conflict among peoples and governments.",
+      "Complex global problems require international cooperation to make difficult choices for the future.",
+      "Systems of government vary in their respect for human rights and freedoms.",
+      "Media sources can both positively and negatively affect our understanding of important events and issues."
+    ],
+    "competencies": [
+      "Use Social Studies inquiry processes and skills to — ask questions; gather, interpret, and analyze ideas; and communicate findings and decisions",
+      "Develop a plan of action to address a selected problem or issue",
+      "Construct arguments defending the significance of individuals/groups, places, events, or developments (significance)",
+      "Ask questions, corroborate inferences, and draw conclusions about the content and origins of a variety of sources, including mass media (evidence)",
+      "Sequence objects, images, or events, and recognize the positive and negative aspects of continuities and changes in the past and present (continuity and change)",
+      "Differentiate between short- and long-term causes, and intended and unintended consequences, of events, decisions, or developments (cause and consequence)",
+      "Take stakeholders’ perspectives on issues, developments, or events by making inferences about their beliefs, values, and motivations (perspective)",
+      "Make ethical judgments about events, decisions, or actions that consider the conditions of a particular time and place, and assess appropriate ways to respond (ethical judgment)"
+    ],
+    "content": [
+      "the urbanization and migration of people",
+      "global poverty and inequality issues, including class structure and gender",
+      "roles of individuals, governmental organizations, and NGOs, including groups representing indigenous peoples",
+      "different systems of government",
+      "economic policies and resource management, including effects on indigenous peoples",
+      "globalization and economic interdependence",
+      "international cooperation and responses to global issues",
+      "regional and international conflict",
+      "media technologies and coverage of current events"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  },
+  "languages|6|core-french": {
+    "sourceUrl": "https://curriculum.gov.bc.ca/curriculum/languages/6/core-french",
+    "sourceNote": "Official BC Curriculum: Core French 6. Verify the selected standards against the linked page.",
+    "bigIdeas": [
+      "Listening and viewing with intent helps us understand French.",
+      "Using various strategies helps us understand and acquire language.",
+      "With simple French, we can describe others and their interests.",
+      "Reciprocal communication in French is possible using high-frequency vocabulary and sentence structures.",
+      "Stories help us to acquire language and understand the world around us.",
+      "Learning about Francophone communities helps us develop cultural awareness."
+    ],
+    "competencies": [
+      "Begin to recognize the relationships between French letter patterns and pronunciation",
+      "Comprehend key information and some details in slow, clear speech and other simple texts",
+      "Comprehend simple stories",
+      "Use various strategies to support communication",
+      "Seek clarification of meaning",
+      "Recognize the relationships between intonation and meaning",
+      "Respond to questions, simple commands, and instructions",
+      "Exchange ideas and information using complete sentences, both orally and in writing",
+      "Express themselves and comprehend others through various modes of presentation",
+      "Explore Francophone communities across Canada",
+      "Explore connections between First Peoples communities and the French language",
+      "Explore a Francophone cultural festival or celebration in Canada"
+    ],
+    "content": [
+      "French phonemes",
+      "French letter patterns",
+      "common, high-frequency vocabulary and sentence structures for communicating meaning:; common questions; descriptions of people and items; hobbies and topics of interest; reasons for likes, dislikes, and preferences; common emotions and physical states; basic information about events; cultural aspects of communities",
+      "communities where French is spoken across Canada",
+      "a Francophone cultural festival or celebration in Canada",
+      "ethics of cultural appropriation and plagiarism"
+    ],
+    "coreCompetencies": [
+      "Communication: Communicating and collaborating to exchange ideas, information, experiences, and perspectives.",
+      "Thinking: Critical and reflective thinking, creative thinking, inquiry, and problem solving.",
+      "Personal and Social: Personal awareness and responsibility, positive personal and cultural identity, and social awareness and responsibility."
+    ],
+    "fppl": [
+      "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+      "Learning is holistic, reflexive, reflective, experiential, and relational.",
+      "Learning involves recognizing the consequences of one\u0027s actions.",
+      "Learning involves generational roles and responsibilities.",
+      "Learning recognizes the role of Indigenous knowledge.",
+      "Learning is embedded in memory, history, and story.",
+      "Learning involves patience and time.",
+      "Learning requires exploration of one\u0027s identity.",
+      "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+    ]
+  }
+};
 
     const standardCategories = [
       { key: "bigIdeas", title: "Big Ideas / Understand", target: "bigIdeas" },
@@ -1170,7 +1727,7 @@
         document.querySelector("#sourceUrl").value = standard.sourceUrl;
         document.querySelector("#sourceNote").value = standard.sourceNote;
         renderStandardsPicker(standard);
-        standardsStatus.textContent = "Loaded selectable Science 6 standards from the official BC Curriculum page. Choose one or more items below, then apply them to the planning fields.";
+        standardsStatus.textContent = `Loaded selectable standards for ${selected.textContent} from the official BC Curriculum page. Choose one or more items below; selections update the planning fields automatically.`;
       } else {
         hideStandardsPicker();
         standardsStatus.textContent = "This course link has been set from the official BC Curriculum navigation. Embedded standards are not loaded yet, so paste the Big Ideas, Curricular Competencies, and Content from the linked page.";
@@ -1493,3 +2050,4 @@
   </script>
 </body>
 </html>
+
