@@ -566,9 +566,18 @@
               <fieldset id="context" class="section">
                 <legend>
                   <h2>1. Context</h2>
-                  <p class="hint">Name the learning sequence and define who it is for.</p>
+                  <p class="hint">Define the learning context (Grade-level, Subject Area, Number of lessons, etc.) and learner profile.</p>
                 </legend>
                 <div class="grid">
+                  <label>Teacher Candidate Name
+                    <input id="teacherCandidate" placeholder="Teacher candidate name">
+                  </label>
+                  <label>Date
+                    <input id="planDate" type="date">
+                  </label>
+                  <label class="full">Practicum School
+                    <input id="practicumSchool" placeholder="Practicum school">
+                  </label>
                   <label>Plan type
                     <select id="planType">
                       <option value="Unit Plan">Unit Plan</option>
@@ -593,7 +602,7 @@
                       <option value="12">Grade 12</option>
                     </select>
                   </label>
-                  <label>Area of learning
+                  <label>Subject Area
                     <select id="subject">
                       <option value="">Select a grade first</option>
                     </select>
@@ -604,6 +613,7 @@
                     </select>
                   </label>
                   <label>Duration
+                    <span class="hint">List the number of lessons, days, blocks, and include the number of minutes per lesson.</span>
                     <input id="duration" placeholder="Example: 3 weeks, 75 minutes">
                   </label>
                   <label class="full">Title
@@ -1469,7 +1479,7 @@
     ];
 
     const fields = [
-      "planType", "grade", "subject", "course", "duration", "title", "learners", "sourceUrl",
+      "teacherCandidate", "planDate", "practicumSchool", "planType", "grade", "subject", "course", "duration", "title", "learners", "sourceUrl",
       "accessDate", "sourceNote", "bigIdeas", "competencies", "contentStandards",
       "coreCompetencies", "fppol", "goals", "questions", "sequence", "materials",
       "vocabulary", "evidence", "criteria", "formative", "reflection", "udl",
@@ -1862,8 +1872,12 @@
       const template = document.querySelector("#doc-template").content.cloneNode(true);
       template.querySelector("#doc-heading").textContent = `${data.title || "Untitled plan"}: ${data.planType || "Plan draft"}`;
       addDefinitionList(template.querySelector("#doc-context"), [
+        ["Teacher Candidate Name", data.teacherCandidate || "To be completed."],
+        ["Date", data.planDate ? readableDate(data.planDate) : "To be completed."],
+        ["Practicum School", data.practicumSchool || "To be completed."],
+        ["Plan type", data.planType || "To be completed."],
         ["Grade level", data.grade ? (data.grade === "K" ? "Kindergarten" : `Grade ${data.grade}`) : "To be completed."],
-        ["Area of learning", data.subject || "To be completed."],
+        ["Subject Area", data.subject || "To be completed."],
         ["Course or curriculum page", data.course ? (courseSelect.selectedOptions[0]?.textContent || data.course) : "To be completed."],
         ["Duration", data.duration || "To be completed."],
         ["Learner context", data.learners || "To be completed."]
