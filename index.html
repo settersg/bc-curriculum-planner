@@ -733,10 +733,14 @@
                 <p class="hint">Generate a semantic HTML plan, print it, or download an HTML document that can be opened in Word or converted to tagged PDF.</p>
                 <div class="button-row">
                   <button type="submit">Generate accessible plan</button>
+                  <button type="button" class="secondary" id="saveDraftBtn">Save draft file</button>
+                  <button type="button" class="secondary" id="loadDraftBtn">Load draft file</button>
                   <button type="button" class="secondary" id="downloadBtn">Download HTML document</button>
                   <button type="button" class="secondary" id="printBtn">Print or save as PDF</button>
                   <button type="button" class="warning" id="clearBtn">Clear form</button>
                 </div>
+                <input class="sr-only" id="draftFileInput" type="file" accept="application/json,.json">
+                <p class="hint">Save draft files in a OneDrive or Google Drive synced folder to reopen them later on another device.</p>
                 <p class="status" id="status" aria-live="polite"></p>
               </section>
             </div>
@@ -794,6 +798,9 @@
     const form = document.querySelector("#planner-form");
     const preview = document.querySelector("#preview");
     const statusBox = document.querySelector("#status");
+    const saveDraftBtn = document.querySelector("#saveDraftBtn");
+    const loadDraftBtn = document.querySelector("#loadDraftBtn");
+    const draftFileInput = document.querySelector("#draftFileInput");
     const downloadBtn = document.querySelector("#downloadBtn");
     const printBtn = document.querySelector("#printBtn");
     const clearBtn = document.querySelector("#clearBtn");
@@ -919,17 +926,7 @@
     ];
 
     const saved = JSON.parse(localStorage.getItem("bcPlannerDraft") || "{}");
-    fields.forEach((id) => {
-      if (saved[id]) document.querySelector(`#${id}`).value = saved[id];
-    });
-    updateSubjectOptions(gradeSelect.value);
-    if (saved.subject) subjectSelect.value = saved.subject;
-    updateCourseOptions(subjectSelect.value, gradeSelect.value);
-    if (saved.course) courseSelect.value = saved.course;
-    applyCourseSelection();
-    checks.forEach(([id]) => {
-      if (typeof saved[id] === "boolean") document.querySelector(`#${id}`).checked = saved[id];
-    });
+    restoreDraft(saved, { render: false, updateStatus: false });
 
     form.addEventListener("input", () => {
       const draft = collect();
@@ -961,6 +958,35 @@
       statusBox.textContent = "Draft plan generated. Blank fields are marked as To be completed.";
     });
 
+    saveDraftBtn.addEventListener("click", () => {
+      const payload = buildDraftPayload();
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" });
+      downloadBlob(blob, `${slug(payload.data.title || "bc-curriculum-planner-draft")}-draft.json`);
+      statusBox.textContent = "Draft file downloaded. Save it in a OneDrive or Google Drive synced folder to keep it across devices.";
+    });
+
+    loadDraftBtn.addEventListener("click", () => {
+      draftFileInput.click();
+    });
+
+    draftFileInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        try {
+          const draft = JSON.parse(reader.result);
+          restoreDraft(draft.data || draft, { render: true, updateStatus: true });
+        } catch (error) {
+          statusBox.textContent = "That draft file could not be read. Please choose a valid BC Curriculum Planner JSON draft.";
+        } finally {
+          draftFileInput.value = "";
+        }
+      });
+      reader.readAsText(file);
+    });
+
     downloadBtn.addEventListener("click", () => {
       if (!preview.querySelector(".doc")) {
         statusBox.textContent = "Generate the plan before downloading.";
@@ -969,14 +995,7 @@
       const plan = collect();
       const html = buildStandaloneDocument(preview.querySelector(".doc").outerHTML, plan.title || "BC Curriculum Plan");
       const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${slug(plan.title || "bc-curriculum-plan")}.html`;
-      document.body.append(link);
-      link.click();
-      link.remove();
-      URL.revokeObjectURL(url);
+      downloadBlob(blob, `${slug(plan.title || "bc-curriculum-plan")}.html`);
       statusBox.textContent = "Accessible HTML document downloaded.";
     });
 
@@ -1001,6 +1020,53 @@
     function saveDraft() {
       const draft = collect();
       localStorage.setItem("bcPlannerDraft", JSON.stringify(draft));
+    }
+
+    function buildDraftPayload() {
+      return {
+        app: "BC Curriculum Unit and Lesson Planner",
+        version: 1,
+        savedAt: new Date().toISOString(),
+        data: collect()
+      };
+    }
+
+    function restoreDraft(data, options = {}) {
+      const { render = false, updateStatus = true } = options;
+      fields.forEach((id) => {
+        const field = document.querySelector(`#${id}`);
+        if (field && Object.prototype.hasOwnProperty.call(data, id)) field.value = data[id];
+      });
+
+      updateSubjectOptions(gradeSelect.value);
+      if (data.subject) subjectSelect.value = data.subject;
+      updateCourseOptions(subjectSelect.value, gradeSelect.value);
+      if (data.course) courseSelect.value = data.course;
+      applyCourseSelection();
+
+      fields.forEach((id) => {
+        const field = document.querySelector(`#${id}`);
+        if (field && Object.prototype.hasOwnProperty.call(data, id)) field.value = data[id];
+      });
+      checks.forEach(([id]) => {
+        const check = document.querySelector(`#${id}`);
+        if (check && typeof data[id] === "boolean") check.checked = data[id];
+      });
+
+      saveDraft();
+      if (render) renderDocument();
+      if (updateStatus) statusBox.textContent = "Draft loaded. You can keep editing or generate the accessible plan.";
+    }
+
+    function downloadBlob(blob, fileName) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = fileName;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
     }
 
     function updateSubjectOptions(grade) {

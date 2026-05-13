@@ -27,6 +27,10 @@ http://127.0.0.1:58942/
 
 The app includes a starter embedded dataset for Grade 6 Science. Other selections set the official BC Curriculum source link and keep the standards fields editable for teacher verification.
 
+## Saving Progress
+
+The planner automatically saves progress in the same browser. To keep a draft across devices, use **Save draft file** and store the downloaded JSON file in a synced OneDrive or Google Drive folder. Later, use **Load draft file** to restore that JSON draft and continue editing.
+
 ## Accessibility Notes
 
 The generated plan uses semantic headings, labelled sections, descriptive links, data-table headers, and an accessibility checklist. If the final deliverable must be PDF, export from a tool that supports tagged PDF and run its accessibility checker before sharing.
