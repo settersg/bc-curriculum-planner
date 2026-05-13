@@ -565,7 +565,7 @@
 
               <fieldset id="context" class="section">
                 <legend>
-                  <h2>1. Context</h2>
+                  <h2>1. Teaching &amp; Learning Context</h2>
                   <p class="hint">Define the learning context (Grade-level, Subject Area, Number of lessons, etc.) and learner profile.</p>
                 </legend>
                 <div class="grid">
@@ -627,7 +627,7 @@
 
               <fieldset id="bc-alignment" class="section">
                 <legend>
-                  <h2>2. BC Alignment</h2>
+                  <h2>2. BC Curriculum Alignment</h2>
                   <p class="hint">Paste or summarize from the official BC curriculum page for the selected grade and area of learning.</p>
                 </legend>
                 <div class="grid">
@@ -668,9 +668,30 @@
                 </div>
               </fieldset>
 
+              <fieldset id="assessment" class="section">
+                <legend>
+                  <h2>3. Assessment Plan</h2>
+                  <p class="hint">Connect assessment evidence to Curricular Competencies and make criteria visible to students.</p>
+                </legend>
+                <div class="grid">
+                  <label class="full">Assessment evidence
+                    <textarea id="evidence" placeholder="Products, performances, conversations, observations"></textarea>
+                  </label>
+                  <label class="full">Success criteria
+                    <textarea id="criteria" placeholder="Student-friendly criteria aligned to the competencies and content"></textarea>
+                  </label>
+                  <label class="full">Formative assessment and feedback
+                    <textarea id="formative" class="short-area" placeholder="Checks for understanding, peer feedback, teacher conferences, self-assessment"></textarea>
+                  </label>
+                  <label class="full">Student reflection
+                    <textarea id="reflection" class="short-area" placeholder="How students will reflect on Core Competencies, growth, and next steps"></textarea>
+                  </label>
+                </div>
+              </fieldset>
+
               <fieldset id="learning-design" class="section">
                 <legend>
-                  <h2>3. Learning Design</h2>
+                  <h2>4. Learning Design</h2>
                   <p class="hint">Use backward design: start with evidence of learning, then plan experiences.</p>
                 </legend>
                 <div class="grid">
@@ -692,30 +713,9 @@
                 </div>
               </fieldset>
 
-              <fieldset id="assessment" class="section">
-                <legend>
-                  <h2>4. Assessment</h2>
-                  <p class="hint">Connect assessment evidence to Curricular Competencies and make criteria visible to students.</p>
-                </legend>
-                <div class="grid">
-                  <label class="full">Assessment evidence
-                    <textarea id="evidence" placeholder="Products, performances, conversations, observations"></textarea>
-                  </label>
-                  <label class="full">Success criteria
-                    <textarea id="criteria" placeholder="Student-friendly criteria aligned to the competencies and content"></textarea>
-                  </label>
-                  <label class="full">Formative assessment and feedback
-                    <textarea id="formative" class="short-area" placeholder="Checks for understanding, peer feedback, teacher conferences, self-assessment"></textarea>
-                  </label>
-                  <label class="full">Student reflection
-                    <textarea id="reflection" class="short-area" placeholder="How students will reflect on Core Competencies, growth, and next steps"></textarea>
-                  </label>
-                </div>
-              </fieldset>
-
               <fieldset id="accessibility" class="section">
                 <legend>
-                  <h2>5. Accessibility</h2>
+                  <h2>5. Accessibility, Differentiation, Universal Design for Learning</h2>
                   <p class="hint">These checks are carried into the exported plan to support accessible implementation and accessible documents.</p>
                 </legend>
                 <div class="check-grid">
@@ -738,8 +738,20 @@
                 </div>
               </fieldset>
 
+              <fieldset id="other-considerations" class="section">
+                <legend>
+                  <h2>6. Other Considerations</h2>
+                  <p class="hint">Add any planning notes that do not fit elsewhere.</p>
+                </legend>
+                <div class="grid">
+                  <label class="full">Other considerations
+                    <textarea id="otherConsiderations" class="short-area" placeholder="Examples: classroom routines, safety, field trip notes, family/community connections, follow-up planning"></textarea>
+                  </label>
+                </div>
+              </fieldset>
+
               <section id="export" class="section" aria-labelledby="export-title">
-                <h2 id="export-title">6. Export</h2>
+                <h2 id="export-title">7. Save Draft or Download</h2>
                 <p class="hint">Generate a semantic HTML plan, print it, or download an HTML document that can be opened in Word or converted to tagged PDF.</p>
                 <div class="button-row">
                   <button type="submit">Generate accessible plan</button>
@@ -769,15 +781,15 @@
     <article class="doc" aria-labelledby="doc-heading">
       <h2 id="doc-heading"></h2>
       <section aria-labelledby="doc-context-title">
-        <h2 id="doc-context-title">Planning Context</h2>
+        <h2 id="doc-context-title">Teaching &amp; Learning Context</h2>
         <dl id="doc-context"></dl>
-      </section>
-      <section aria-labelledby="doc-source-title">
-        <h2 id="doc-source-title">Official BC Curriculum Source</h2>
-        <p id="doc-source"></p>
       </section>
       <section aria-labelledby="doc-alignment-title">
         <h2 id="doc-alignment-title">BC Curriculum Alignment</h2>
+        <section aria-labelledby="doc-source-title">
+          <h3 id="doc-source-title">Official BC Curriculum Source</h3>
+          <p id="doc-source"></p>
+        </section>
         <table>
           <caption>Know-Do-Understand alignment from the official BC curriculum</caption>
           <thead>
@@ -789,17 +801,21 @@
           <tbody id="doc-alignment"></tbody>
         </table>
       </section>
-      <section aria-labelledby="doc-design-title">
-        <h2 id="doc-design-title">Learning Design</h2>
-        <div id="doc-design"></div>
-      </section>
       <section aria-labelledby="doc-assessment-title">
         <h2 id="doc-assessment-title">Assessment Plan</h2>
         <div id="doc-assessment"></div>
       </section>
+      <section aria-labelledby="doc-design-title">
+        <h2 id="doc-design-title">Learning Design</h2>
+        <div id="doc-design"></div>
+      </section>
       <section aria-labelledby="doc-access-title">
-        <h2 id="doc-access-title">Accessibility and Inclusion</h2>
+        <h2 id="doc-access-title">Accessibility, Differentiation, Universal Design for Learning</h2>
         <div id="doc-access"></div>
+      </section>
+      <section aria-labelledby="doc-other-title">
+        <h2 id="doc-other-title">Other Considerations</h2>
+        <div id="doc-other"></div>
       </section>
     </article>
   </template>
@@ -1482,7 +1498,7 @@
       "teacherCandidate", "planDate", "practicumSchool", "planType", "grade", "subject", "course", "duration", "title", "learners", "sourceUrl",
       "accessDate", "sourceNote", "bigIdeas", "competencies", "contentStandards",
       "coreCompetencies", "fppol", "goals", "questions", "sequence", "materials",
-      "vocabulary", "evidence", "criteria", "formative", "reflection", "udl",
+      "vocabulary", "evidence", "criteria", "formative", "reflection", "udl", "otherConsiderations",
       "accessibleDocNotes"
     ];
 
@@ -1915,6 +1931,9 @@
         ["Student reflection", data.reflection || "To be completed."]
       ]);
       addAccessibility(template.querySelector("#doc-access"), data);
+      addSections(template.querySelector("#doc-other"), [
+        ["Other considerations", data.otherConsiderations || "To be completed."]
+      ]);
       preview.className = "";
       preview.replaceChildren(template);
     }
