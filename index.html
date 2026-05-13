@@ -7,18 +7,18 @@
   <style>
     :root {
       color-scheme: light;
-      --ink: #162018;
-      --muted: #5d665f;
-      --line: #cfd8d1;
-      --paper: #fbfdf9;
+      --ink: #002145;
+      --muted: #2f5d7c;
+      --line: #d7e0e7;
+      --paper: #f7f9fb;
       --surface: #ffffff;
-      --soft: #edf4ed;
-      --accent: #0f6b55;
-      --accent-strong: #0a4f40;
+      --soft: #e6eef3;
+      --accent: #0055b7;
+      --accent-strong: #002145;
       --warn: #8b4a0b;
-      --focus: #174ea6;
-      --shadow: 0 18px 44px rgba(23, 35, 26, 0.12);
-      font-family: Atkinson Hyperlegible, Verdana, Arial, sans-serif;
+      --focus: #00a7e1;
+      --shadow: 0 18px 44px rgba(0, 33, 69, 0.12);
+      font-family: Whitney, Arial, "Open Sans", sans-serif;
     }
 
     * {
@@ -48,7 +48,7 @@
     }
 
     header {
-      background: #f2f7f0;
+      background: var(--ink);
       border-bottom: 1px solid var(--line);
     }
 
@@ -66,7 +66,7 @@
 
     .eyebrow {
       margin: 0;
-      color: var(--accent-strong);
+      color: #97d4e9;
       font-weight: 700;
       letter-spacing: 0;
       text-transform: uppercase;
@@ -99,8 +99,12 @@
     .lead {
       margin: 0;
       max-width: 860px;
-      color: var(--muted);
+      color: #ffffff;
       font-size: 1.08rem;
+    }
+
+    .masthead h1 {
+      color: #ffffff;
     }
 
     .source-row {
@@ -330,7 +334,7 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 16px;
-      background: #f8fbf6;
+      background: #f7f9fb;
     }
 
     .standards-picker.is-visible {
@@ -515,7 +519,7 @@
   <header>
     <div class="wrap masthead">
       <p class="eyebrow">BC Curriculum aligned planning tool</p>
-      <h1>Unit and lesson planner for accessible BC curriculum documents</h1>
+      <h1>BC Curriculum Unit and Lesson Planner</h1>
       <p class="lead">Build a unit or lesson plan that keeps Big Ideas, Curricular Competencies, Content, Core Competencies, First Peoples Principles of Learning, assessment, differentiation, and accessibility visible from draft to export.</p>
       <nav class="source-row" aria-label="Official curriculum links">
         <a href="https://curriculum.gov.bc.ca/curriculum/overview" target="_blank" rel="noopener">BC curriculum overview</a>
@@ -557,7 +561,7 @@
           <section class="panel" aria-labelledby="form-title">
             <div class="panel-inner">
               <h2 id="form-title">Planning Workspace</h2>
-              <p class="required-note"><strong>Required fields</strong> are marked with an asterisk. The generated document is editable after export.</p>
+              <p class="required-note"><strong>Draft mode:</strong> generate anytime. Blank fields appear as “To be completed” in the plan.</p>
 
               <fieldset id="context" class="section">
                 <legend>
@@ -565,14 +569,14 @@
                   <p class="hint">Name the learning sequence and define who it is for.</p>
                 </legend>
                 <div class="grid">
-                  <label>Plan type *
-                    <select id="planType" required>
+                  <label>Plan type
+                    <select id="planType">
                       <option value="Unit Plan">Unit Plan</option>
                       <option value="Lesson Plan">Lesson Plan</option>
                     </select>
                   </label>
-                  <label>Grade level *
-                    <select id="grade" required>
+                  <label>Grade level
+                    <select id="grade">
                       <option value="">Select a grade</option>
                       <option value="K">Kindergarten</option>
                       <option value="1">Grade 1</option>
@@ -589,21 +593,21 @@
                       <option value="12">Grade 12</option>
                     </select>
                   </label>
-                  <label>Area of learning *
-                    <select id="subject" required>
+                  <label>Area of learning
+                    <select id="subject">
                       <option value="">Select a grade first</option>
                     </select>
                   </label>
-                  <label class="full">Course or curriculum page *
-                    <select id="course" required disabled>
+                  <label class="full">Course or curriculum page
+                    <select id="course" disabled>
                       <option value="">Select an area first</option>
                     </select>
                   </label>
-                  <label>Duration *
-                    <input id="duration" required placeholder="Example: 3 weeks, 75 minutes">
+                  <label>Duration
+                    <input id="duration" placeholder="Example: 3 weeks, 75 minutes">
                   </label>
-                  <label class="full">Title *
-                    <input id="title" required placeholder="Example: Ecosystems and Interdependence">
+                  <label class="full">Title
+                    <input id="title" placeholder="Example: Ecosystems and Interdependence">
                   </label>
                   <label class="full">Learner context
                     <textarea id="learners" class="short-area" placeholder="Class profile, strengths, interests, access needs, language needs, community context"></textarea>
@@ -617,8 +621,8 @@
                   <p class="hint">Paste or summarize from the official BC curriculum page for the selected grade and area of learning.</p>
                 </legend>
                 <div class="grid">
-                  <label class="full">Official BC curriculum URL *
-                    <input id="sourceUrl" type="url" required placeholder="https://curriculum.gov.bc.ca/curriculum/...">
+                  <label class="full">Official BC curriculum URL
+                    <input id="sourceUrl" type="url" placeholder="https://curriculum.gov.bc.ca/curriculum/...">
                   </label>
                   <div class="full source-box" id="standardsStatus" role="status" aria-live="polite">
                     Choose a grade, area, and course to load any standards currently built into this tool. Always verify against the official BC curriculum page linked above.
@@ -626,24 +630,24 @@
                   <section class="standards-picker" id="standardsPicker" aria-labelledby="standards-picker-title">
                     <div>
                       <h3 id="standards-picker-title">Choose Standards To Autofill</h3>
-                      <p class="hint">Select one or more items in each category, then apply them to the planning fields. You can still edit the text after applying.</p>
+                      <p class="hint">Select one or more items in each category. The matching planning field updates immediately, and you can still edit the text afterward.</p>
                     </div>
                     <div id="standardsPickerContent"></div>
                   </section>
-                  <label>Access date *
-                    <input id="accessDate" type="date" required>
+                  <label>Access date
+                    <input id="accessDate" type="date">
                   </label>
                   <label>Source note
                     <input id="sourceNote" placeholder="Example: Grade 6 Science curriculum page">
                   </label>
-                  <label class="full">Big Ideas / Understand *
-                    <textarea id="bigIdeas" required placeholder="Paste the relevant Big Idea statements"></textarea>
+                  <label class="full">Big Ideas / Understand
+                    <textarea id="bigIdeas" placeholder="Paste the relevant Big Idea statements"></textarea>
                   </label>
-                  <label class="full">Curricular Competencies / Do *
-                    <textarea id="competencies" required placeholder="Paste the relevant curricular competencies"></textarea>
+                  <label class="full">Curricular Competencies / Do
+                    <textarea id="competencies" placeholder="Paste the relevant curricular competencies"></textarea>
                   </label>
-                  <label class="full">Content / Know *
-                    <textarea id="contentStandards" required placeholder="Paste the relevant content standards"></textarea>
+                  <label class="full">Content / Know
+                    <textarea id="contentStandards" placeholder="Paste the relevant content standards"></textarea>
                   </label>
                   <label class="full">Core Competencies
                     <textarea id="coreCompetencies" placeholder="Communication, Thinking, Personal and Social connections"></textarea>
@@ -660,14 +664,14 @@
                   <p class="hint">Use backward design: start with evidence of learning, then plan experiences.</p>
                 </legend>
                 <div class="grid">
-                  <label class="full">Learning goals *
-                    <textarea id="goals" required placeholder="Students will understand, know, and be able to..."></textarea>
+                  <label class="full">Learning goals
+                    <textarea id="goals" placeholder="Students will understand, know, and be able to..."></textarea>
                   </label>
                   <label class="full">Essential questions
                     <textarea id="questions" class="short-area" placeholder="Open questions that invite inquiry"></textarea>
                   </label>
-                  <label class="full">Learning sequence *
-                    <textarea id="sequence" required placeholder="Opening, inquiry or modelling, guided practice, collaboration, consolidation, reflection"></textarea>
+                  <label class="full">Learning sequence
+                    <textarea id="sequence" placeholder="Opening, inquiry or modelling, guided practice, collaboration, consolidation, reflection"></textarea>
                   </label>
                   <label class="full">Materials and technologies
                     <textarea id="materials" class="short-area" placeholder="Include accessible formats, captions, readable documents, assistive technology supports"></textarea>
@@ -684,11 +688,11 @@
                   <p class="hint">Connect assessment evidence to Curricular Competencies and make criteria visible to students.</p>
                 </legend>
                 <div class="grid">
-                  <label class="full">Assessment evidence *
-                    <textarea id="evidence" required placeholder="Products, performances, conversations, observations"></textarea>
+                  <label class="full">Assessment evidence
+                    <textarea id="evidence" placeholder="Products, performances, conversations, observations"></textarea>
                   </label>
-                  <label class="full">Success criteria *
-                    <textarea id="criteria" required placeholder="Student-friendly criteria aligned to the competencies and content"></textarea>
+                  <label class="full">Success criteria
+                    <textarea id="criteria" placeholder="Student-friendly criteria aligned to the competencies and content"></textarea>
                   </label>
                   <label class="full">Formative assessment and feedback
                     <textarea id="formative" class="short-area" placeholder="Checks for understanding, peer feedback, teacher conferences, self-assessment"></textarea>
@@ -953,9 +957,8 @@
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      if (!form.reportValidity()) return;
       renderDocument();
-      statusBox.textContent = "Plan generated. Review the preview and export when ready.";
+      statusBox.textContent = "Draft plan generated. Blank fields are marked as To be completed.";
     });
 
     downloadBtn.addEventListener("click", () => {
@@ -978,11 +981,6 @@
     });
 
     printBtn.addEventListener("click", () => {
-      if (!form.reportValidity()) {
-        statusBox.textContent = "Complete the required fields before creating the PDF print view.";
-        return;
-      }
-
       if (!preview.querySelector(".doc")) renderDocument();
       const plan = collect();
       const html = buildStandaloneDocument(preview.querySelector(".doc").outerHTML, plan.title || "BC Curriculum Plan");
@@ -1099,16 +1097,16 @@
         actions.className = "standards-actions";
         const applyButton = document.createElement("button");
         applyButton.type = "button";
-        applyButton.textContent = `Apply selected ${category.title}`;
+        applyButton.textContent = `Refresh ${category.title}`;
         applyButton.addEventListener("click", () => applySelectedStandards(category));
         const selectAllButton = document.createElement("button");
         selectAllButton.type = "button";
         selectAllButton.textContent = "Select all";
-        selectAllButton.addEventListener("click", () => setCategoryChecks(category.key, true));
+        selectAllButton.addEventListener("click", () => setCategoryChecks(category, true));
         const clearButton = document.createElement("button");
         clearButton.type = "button";
         clearButton.textContent = "Clear";
-        clearButton.addEventListener("click", () => setCategoryChecks(category.key, false));
+        clearButton.addEventListener("click", () => setCategoryChecks(category, false));
         actions.append(applyButton, selectAllButton, clearButton);
 
         const list = document.createElement("div");
@@ -1122,6 +1120,7 @@
           input.dataset.target = category.target;
           input.value = item;
           input.id = `${category.key}-${index}`;
+          input.addEventListener("change", () => applySelectedStandards(category, true));
           const span = document.createElement("span");
           span.textContent = item;
           label.append(input, span);
@@ -1141,20 +1140,23 @@
 
     function setCategoryChecks(category, checked) {
       standardsPickerContent
-        .querySelectorAll(`input[data-category="${category}"]`)
+        .querySelectorAll(`input[data-category="${category.key}"]`)
         .forEach((input) => {
           input.checked = checked;
         });
+      applySelectedStandards(category, true);
     }
 
-    function applySelectedStandards(category) {
+    function applySelectedStandards(category, quiet = false) {
       const selected = [...standardsPickerContent.querySelectorAll(`input[data-category="${category.key}"]:checked`)]
         .map((input) => input.value);
       const target = document.querySelector(`#${category.target}`);
       target.value = selected.join(category.key === "competencies" ? "\n\n" : "\n");
-      statusBox.textContent = selected.length
-        ? `Applied ${selected.length} selected item${selected.length === 1 ? "" : "s"} to ${category.title}.`
-        : `No ${category.title} selected.`;
+      if (!quiet) {
+        statusBox.textContent = selected.length
+          ? `Applied ${selected.length} selected item${selected.length === 1 ? "" : "s"} to ${category.title}.`
+          : `No ${category.title} selected.`;
+      }
       saveDraft();
     }
 
@@ -1179,21 +1181,25 @@
     function renderDocument() {
       const data = collect();
       const template = document.querySelector("#doc-template").content.cloneNode(true);
-      template.querySelector("#doc-heading").textContent = `${data.title}: ${data.planType}`;
+      template.querySelector("#doc-heading").textContent = `${data.title || "Untitled plan"}: ${data.planType || "Plan draft"}`;
       addDefinitionList(template.querySelector("#doc-context"), [
-        ["Grade level", data.grade === "K" ? "Kindergarten" : `Grade ${data.grade}`],
-        ["Area of learning", data.subject],
-        ["Course or curriculum page", courseSelect.selectedOptions[0]?.textContent || data.course],
-        ["Duration", data.duration],
+        ["Grade level", data.grade ? (data.grade === "K" ? "Kindergarten" : `Grade ${data.grade}`) : "To be completed."],
+        ["Area of learning", data.subject || "To be completed."],
+        ["Course or curriculum page", data.course ? (courseSelect.selectedOptions[0]?.textContent || data.course) : "To be completed."],
+        ["Duration", data.duration || "To be completed."],
         ["Learner context", data.learners || "To be completed."]
       ]);
       const source = template.querySelector("#doc-source");
-      const sourceLink = document.createElement("a");
-      sourceLink.href = data.sourceUrl;
-      sourceLink.target = "_blank";
-      sourceLink.rel = "noopener";
-      sourceLink.textContent = data.sourceUrl;
-      source.append("Curriculum source: ", sourceLink, `. Accessed ${readableDate(data.accessDate)}.`);
+      if (data.sourceUrl) {
+        const sourceLink = document.createElement("a");
+        sourceLink.href = data.sourceUrl;
+        sourceLink.target = "_blank";
+        sourceLink.rel = "noopener";
+        sourceLink.textContent = data.sourceUrl;
+        source.append("Curriculum source: ", sourceLink, `. Accessed ${readableDate(data.accessDate)}.`);
+      } else {
+        source.textContent = "Curriculum source: To be completed.";
+      }
       if (data.sourceNote) source.append(` ${data.sourceNote}`);
       addRows(template.querySelector("#doc-alignment"), [
         ["Big Ideas / Understand", data.bigIdeas],
@@ -1349,7 +1355,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
   <style>
-    body { max-width: 920px; margin: 32px auto; padding: 0 20px; color: #162018; font-family: Atkinson Hyperlegible, Verdana, Arial, sans-serif; line-height: 1.55; }
+    body { max-width: 920px; margin: 32px auto; padding: 0 20px; color: #002145; font-family: Whitney, Arial, "Open Sans", sans-serif; line-height: 1.55; }
     h1, h2, h3 { line-height: 1.2; letter-spacing: 0; }
     a { color: #0a4f40; text-decoration-thickness: 0.12em; text-underline-offset: 0.18em; }
     button { min-height: 42px; border: 1px solid #0f6b55; border-radius: 6px; padding: 9px 13px; background: #0f6b55; color: #fff; font: inherit; font-weight: 800; cursor: pointer; }
