@@ -4,15 +4,28 @@ This is a local, static HTML planning tool for creating accessible BC Curriculum
 
 ## Use
 
-Open `index.html` directly in a browser.
+Open `index.html` directly in a browser, or run the included local server:
+
+```powershell
+node server.js 58942
+```
+
+Then visit:
+
+```text
+http://127.0.0.1:58942/
+```
 
 ## Alignment Workflow
 
 1. Open the official BC Curriculum documents from the links in the tool.
 2. Select the relevant grade or course and area of learning.
-3. Paste the official Big Ideas, Curricular Competencies, and Content into the planner.
-4. Include the official source URL and access date.
-5. Generate the plan and export it as accessible HTML.
+3. Use the dependent curriculum menus to choose the official course or curriculum page.
+4. Paste or verify the official Big Ideas, Curricular Competencies, and Content in the planner.
+5. Include the official source URL and access date.
+6. Generate the plan and export it as accessible HTML.
+
+The app includes a starter embedded dataset for Grade 6 Science. Other selections set the official BC Curriculum source link and keep the standards fields editable for teacher verification.
 
 ## Accessibility Notes
 

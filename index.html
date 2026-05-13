@@ -324,6 +324,44 @@
       margin-top: 2px;
     }
 
+    .standards-picker {
+      display: none;
+      grid-column: 1 / -1;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: #f8fbf6;
+    }
+
+    .standards-picker.is-visible {
+      display: grid;
+      gap: 14px;
+    }
+
+    .standards-category {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .standards-category:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .standards-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .standards-actions button {
+      min-height: 36px;
+      padding: 7px 10px;
+      background: #fff;
+      color: var(--accent-strong);
+    }
+
     .status {
       min-height: 30px;
       margin-top: 12px;
@@ -533,23 +571,32 @@
                       <option value="Lesson Plan">Lesson Plan</option>
                     </select>
                   </label>
-                  <label>Grade or course *
-                    <input id="grade" required placeholder="Example: Grade 5, Science 10">
+                  <label>Grade level *
+                    <select id="grade" required>
+                      <option value="">Select a grade</option>
+                      <option value="K">Kindergarten</option>
+                      <option value="1">Grade 1</option>
+                      <option value="2">Grade 2</option>
+                      <option value="3">Grade 3</option>
+                      <option value="4">Grade 4</option>
+                      <option value="5">Grade 5</option>
+                      <option value="6">Grade 6</option>
+                      <option value="7">Grade 7</option>
+                      <option value="8">Grade 8</option>
+                      <option value="9">Grade 9</option>
+                      <option value="10">Grade 10</option>
+                      <option value="11">Grade 11</option>
+                      <option value="12">Grade 12</option>
+                    </select>
                   </label>
                   <label>Area of learning *
                     <select id="subject" required>
-                      <option value="">Select an area</option>
-                      <option>Applied Design, Skills and Technology</option>
-                      <option>Arts Education</option>
-                      <option>Career Education</option>
-                      <option>English Language Arts</option>
-                      <option>Français langue première</option>
-                      <option>Français langue seconde - immersion</option>
-                      <option>Languages</option>
-                      <option>Mathematics</option>
-                      <option>Physical and Health Education</option>
-                      <option>Science</option>
-                      <option>Social Studies</option>
+                      <option value="">Select a grade first</option>
+                    </select>
+                  </label>
+                  <label class="full">Course or curriculum page *
+                    <select id="course" required disabled>
+                      <option value="">Select an area first</option>
                     </select>
                   </label>
                   <label>Duration *
@@ -573,6 +620,16 @@
                   <label class="full">Official BC curriculum URL *
                     <input id="sourceUrl" type="url" required placeholder="https://curriculum.gov.bc.ca/curriculum/...">
                   </label>
+                  <div class="full source-box" id="standardsStatus" role="status" aria-live="polite">
+                    Choose a grade, area, and course to load any standards currently built into this tool. Always verify against the official BC curriculum page linked above.
+                  </div>
+                  <section class="standards-picker" id="standardsPicker" aria-labelledby="standards-picker-title">
+                    <div>
+                      <h3 id="standards-picker-title">Choose Standards To Autofill</h3>
+                      <p class="hint">Select one or more items in each category, then apply them to the planning fields. You can still edit the text after applying.</p>
+                    </div>
+                    <div id="standardsPickerContent"></div>
+                  </section>
                   <label>Access date *
                     <input id="accessDate" type="date" required>
                   </label>
@@ -736,25 +793,110 @@
     const downloadBtn = document.querySelector("#downloadBtn");
     const printBtn = document.querySelector("#printBtn");
     const clearBtn = document.querySelector("#clearBtn");
+    const gradeSelect = document.querySelector("#grade");
+    const subjectSelect = document.querySelector("#subject");
+    const courseSelect = document.querySelector("#course");
+    const standardsStatus = document.querySelector("#standardsStatus");
+    const standardsPicker = document.querySelector("#standardsPicker");
+    const standardsPickerContent = document.querySelector("#standardsPickerContent");
     const today = new Date().toISOString().slice(0, 10);
     document.querySelector("#accessDate").value = today;
 
-    const subjectLinks = {
-      "Applied Design, Skills and Technology": "https://curriculum.gov.bc.ca/curriculum/adst",
-      "Arts Education": "https://curriculum.gov.bc.ca/curriculum/arts-education",
-      "Career Education": "https://curriculum.gov.bc.ca/curriculum/career-education",
-      "English Language Arts": "https://curriculum.gov.bc.ca/curriculum/english-language-arts",
-      "Français langue première": "https://curriculum.gov.bc.ca/curriculum/francais-langue-premiere",
-      "Français langue seconde - immersion": "https://curriculum.gov.bc.ca/curriculum/francais-langue-seconde-immersion",
-      "Languages": "https://curriculum.gov.bc.ca/curriculum/languages",
-      "Mathematics": "https://curriculum.gov.bc.ca/curriculum/mathematics",
-      "Physical and Health Education": "https://curriculum.gov.bc.ca/curriculum/physical-health-education",
-      "Science": "https://curriculum.gov.bc.ca/curriculum/science",
-      "Social Studies": "https://curriculum.gov.bc.ca/curriculum/social-studies"
+    const curriculumAreas = [
+      { name: "Applied Design, Skills and Technology", slug: "adst", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "Arts Education", slug: "arts-education", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "Career Education", slug: "career-education", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "English Language Arts", slug: "english-language-arts", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "Français langue première", slug: "francais-langue-premiere", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "Français langue seconde - immersion", slug: "francais-langue-seconde-immersion", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "Languages", slug: "languages", grades: ["5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "Mathematics", slug: "mathematics", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "Physical and Health Education", slug: "physical-health-education", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] },
+      { name: "Science", slug: "science", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] },
+      { name: "Social Studies", slug: "social-studies", grades: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"] }
+    ];
+
+    const courseOverrides = {
+      "Science|11": [
+        ["chemistry", "Chemistry 11"],
+        ["earth-sciences", "Earth Sciences 11"],
+        ["environmental-science", "Environmental Science 11"],
+        ["life-sciences", "Life Sciences 11"],
+        ["physics", "Physics 11"],
+        ["science-for-citizens", "Science for Citizens 11"],
+        ["specialized-science", "Specialized Science 11"]
+      ],
+      "Science|12": [
+        ["anatomy-and-physiology", "Anatomy and Physiology 12"],
+        ["chemistry", "Chemistry 12"],
+        ["environmental-science", "Environmental Science 12"],
+        ["geology", "Geology 12"],
+        ["physics", "Physics 12"],
+        ["specialized-science", "Specialized Science 12"]
+      ],
+      "Career Education|10": [["career-life-education", "Career-Life Education"]],
+      "Career Education|11": [["courses", "Career-Life Connections"]],
+      "Career Education|12": [["courses", "Career-Life Connections"]]
     };
 
+    const embeddedStandards = {
+      "science|6|core": {
+        sourceUrl: "https://curriculum.gov.bc.ca/curriculum/science/6/core",
+        sourceNote: "Official BC Curriculum: Science 6. Verify the selected standards against the linked page.",
+        bigIdeas: [
+          "Multicellular organisms rely on internal systems to survive, reproduce, and interact with their environment.",
+          "Everyday materials are often mixtures.",
+          "Newton's three laws of motion describe the relationship between force and motion.",
+          "The solar system is part of the Milky Way, which is one of billions of galaxies."
+        ],
+        competencies: [
+          "Questioning and predicting: Demonstrate a sustained curiosity about a scientific topic or problem of personal interest; make observations in familiar or unfamiliar contexts; identify questions to answer or problems to solve through scientific inquiry; make predictions about the findings of their inquiry.",
+          "Planning and conducting: With support, plan appropriate investigations; decide which variable should be changed and measured for a fair test; choose appropriate data to collect; observe, measure, and record data using appropriate tools, including digital technologies; use equipment and materials safely, identifying potential risks.",
+          "Processing and analyzing data and information: Experience and interpret the local environment; identify First Peoples perspectives and knowledge as sources of information; construct and use tables, graphs, and digital technologies to represent patterns or relationships; identify patterns and connections in data; compare data with predictions and develop explanations for results; demonstrate openness to new ideas and consideration of alternatives.",
+          "Evaluating: Evaluate whether investigations were fair tests; identify possible sources of error; suggest improvements; identify some assumptions in secondary sources; demonstrate understanding and appreciation of evidence; identify some social, ethical, and environmental implications of findings.",
+          "Applying and innovating: Contribute to care for self, others, and community; co-operatively design projects; transfer and apply learning to new situations; generate and introduce new or refined ideas when problem solving.",
+          "Communicating: Communicate ideas, explanations, and processes in a variety of ways; express and reflect on personal, shared, or others' experiences of place."
+        ],
+        content: [
+          "The basic structures and functions of body systems: digestive, musculo-skeletal, respiratory, circulatory.",
+          "Solutions and solubility.",
+          "Heterogeneous mixtures.",
+          "Mixtures: separated using a difference in component properties.",
+          "Newton's three laws of motion.",
+          "Effects of balanced and unbalanced forces in daily physical activities.",
+          "Force of gravity.",
+          "The overall scale, structure, and age of the universe.",
+          "The position, motion, and components of our solar system in our galaxy."
+        ],
+        coreCompetencies: [
+          "Communication: Students communicate ideas, explanations, and processes in a variety of ways.",
+          "Thinking: Students develop questions, make predictions, analyze evidence, and consider alternatives.",
+          "Personal and Social: Students contribute to care for self, others, community, and place."
+        ],
+        fppl: [
+          "Learning ultimately supports the well-being of the self, the family, the community, the land, the spirits, and the ancestors.",
+          "Learning is holistic, reflexive, reflective, experiential, and relational.",
+          "Learning involves recognizing the consequences of one's actions.",
+          "Learning involves generational roles and responsibilities.",
+          "Learning recognizes the role of Indigenous knowledge.",
+          "Learning is embedded in memory, history, and story.",
+          "Learning involves patience and time.",
+          "Learning requires exploration of one's identity.",
+          "Learning involves recognizing that some knowledge is sacred and only shared with permission or in certain situations."
+        ]
+      }
+    };
+
+    const standardCategories = [
+      { key: "bigIdeas", title: "Big Ideas / Understand", target: "bigIdeas" },
+      { key: "competencies", title: "Curricular Competencies / Do", target: "competencies" },
+      { key: "content", title: "Content / Know", target: "contentStandards" },
+      { key: "coreCompetencies", title: "Core Competencies", target: "coreCompetencies" },
+      { key: "fppl", title: "First Peoples Principles of Learning", target: "fppol" }
+    ];
+
     const fields = [
-      "planType", "grade", "subject", "duration", "title", "learners", "sourceUrl",
+      "planType", "grade", "subject", "course", "duration", "title", "learners", "sourceUrl",
       "accessDate", "sourceNote", "bigIdeas", "competencies", "contentStandards",
       "coreCompetencies", "fppol", "goals", "questions", "sequence", "materials",
       "vocabulary", "evidence", "criteria", "formative", "reflection", "udl",
@@ -776,6 +918,11 @@
     fields.forEach((id) => {
       if (saved[id]) document.querySelector(`#${id}`).value = saved[id];
     });
+    updateSubjectOptions(gradeSelect.value);
+    if (saved.subject) subjectSelect.value = saved.subject;
+    updateCourseOptions(subjectSelect.value, gradeSelect.value);
+    if (saved.course) courseSelect.value = saved.course;
+    applyCourseSelection();
     checks.forEach(([id]) => {
       if (typeof saved[id] === "boolean") document.querySelector(`#${id}`).checked = saved[id];
     });
@@ -785,10 +932,23 @@
       localStorage.setItem("bcPlannerDraft", JSON.stringify(draft));
     });
 
-    document.querySelector("#subject").addEventListener("change", (event) => {
-      const url = subjectLinks[event.target.value];
-      const source = document.querySelector("#sourceUrl");
-      if (url && !source.value) source.value = url;
+    gradeSelect.addEventListener("change", (event) => {
+      updateSubjectOptions(event.target.value);
+      subjectSelect.value = "";
+      updateCourseOptions("", event.target.value);
+      clearLoadedStandards();
+      saveDraft();
+    });
+
+    subjectSelect.addEventListener("change", (event) => {
+      updateCourseOptions(event.target.value, gradeSelect.value);
+      clearLoadedStandards();
+      saveDraft();
+    });
+
+    courseSelect.addEventListener("change", () => {
+      applyCourseSelection();
+      saveDraft();
     });
 
     form.addEventListener("submit", (event) => {
@@ -836,7 +996,174 @@
       preview.textContent = "Your accessible BC-aligned plan will appear here after you generate it.";
       localStorage.removeItem("bcPlannerDraft");
       statusBox.textContent = "Form cleared.";
+      updateSubjectOptions("");
+      updateCourseOptions("", "");
     });
+
+    function saveDraft() {
+      const draft = collect();
+      localStorage.setItem("bcPlannerDraft", JSON.stringify(draft));
+    }
+
+    function updateSubjectOptions(grade) {
+      subjectSelect.replaceChildren(option("", grade ? "Select an area" : "Select a grade first"));
+      curriculumAreas
+        .filter((area) => area.grades.includes(String(grade)))
+        .forEach((area) => subjectSelect.append(option(area.name, area.name)));
+      subjectSelect.disabled = !grade;
+    }
+
+    function updateCourseOptions(subject, grade) {
+      courseSelect.replaceChildren(option("", subject ? "Select a course or curriculum page" : "Select an area first"));
+      courseSelect.disabled = !subject || !grade;
+      if (!subject || !grade) return;
+
+      getCourseOptions(subject, grade).forEach((course) => {
+        const item = option(course.value, course.label);
+        item.dataset.url = course.url;
+        item.dataset.key = course.key;
+        courseSelect.append(item);
+      });
+      applyCourseSelection();
+    }
+
+    function getCourseOptions(subject, grade) {
+      const area = curriculumAreas.find((item) => item.name === subject);
+      if (!area) return [];
+      const override = courseOverrides[`${subject}|${grade}`];
+      if (override) {
+        return override.map(([slug, label]) => ({
+          value: slug,
+          label,
+          key: `${area.slug}|${grade}|${slug}`,
+          url: `https://curriculum.gov.bc.ca/curriculum/${area.slug}/${grade}/${slug}`
+        }));
+      }
+      const gradeLabel = grade === "K" ? "Kindergarten" : `Grade ${grade}`;
+      return [{
+        value: "core",
+        label: `${subject} ${gradeLabel}`,
+        key: `${area.slug}|${grade}|core`,
+        url: `https://curriculum.gov.bc.ca/curriculum/${area.slug}/${grade.toLowerCase()}/core`
+      }];
+    }
+
+    function applyCourseSelection() {
+      const selected = courseSelect.selectedOptions[0];
+      if (!selected || !selected.value) {
+        standardsStatus.textContent = "Choose a grade, area, and course to load any standards currently built into this tool. Always verify against the official BC curriculum page linked above.";
+        return;
+      }
+
+      const source = document.querySelector("#sourceUrl");
+      source.value = selected.dataset.url || source.value;
+      const standard = embeddedStandards[selected.dataset.key];
+      if (standard) {
+        document.querySelector("#sourceUrl").value = standard.sourceUrl;
+        document.querySelector("#sourceNote").value = standard.sourceNote;
+        renderStandardsPicker(standard);
+        standardsStatus.textContent = "Loaded selectable Science 6 standards from the official BC Curriculum page. Choose one or more items below, then apply them to the planning fields.";
+      } else {
+        hideStandardsPicker();
+        standardsStatus.textContent = "This course link has been set from the official BC Curriculum navigation. Embedded standards are not loaded yet, so paste the Big Ideas, Curricular Competencies, and Content from the linked page.";
+      }
+    }
+
+    function clearLoadedStandards() {
+      document.querySelector("#sourceUrl").value = "";
+      document.querySelector("#sourceNote").value = "";
+      document.querySelector("#bigIdeas").value = "";
+      document.querySelector("#competencies").value = "";
+      document.querySelector("#contentStandards").value = "";
+      document.querySelector("#coreCompetencies").value = "";
+      document.querySelector("#fppol").value = "";
+      hideStandardsPicker();
+      standardsStatus.textContent = "Choose a grade, area, and course to load any standards currently built into this tool. Always verify against the official BC curriculum page linked above.";
+    }
+
+    function renderStandardsPicker(standard) {
+      standardsPickerContent.replaceChildren();
+      standardCategories.forEach((category) => {
+        const items = standard[category.key] || [];
+        if (!items.length) return;
+
+        const section = document.createElement("section");
+        section.className = "standards-category";
+        section.setAttribute("aria-labelledby", `${category.key}-title`);
+
+        const heading = document.createElement("h3");
+        heading.id = `${category.key}-title`;
+        heading.textContent = category.title;
+
+        const actions = document.createElement("div");
+        actions.className = "standards-actions";
+        const applyButton = document.createElement("button");
+        applyButton.type = "button";
+        applyButton.textContent = `Apply selected ${category.title}`;
+        applyButton.addEventListener("click", () => applySelectedStandards(category));
+        const selectAllButton = document.createElement("button");
+        selectAllButton.type = "button";
+        selectAllButton.textContent = "Select all";
+        selectAllButton.addEventListener("click", () => setCategoryChecks(category.key, true));
+        const clearButton = document.createElement("button");
+        clearButton.type = "button";
+        clearButton.textContent = "Clear";
+        clearButton.addEventListener("click", () => setCategoryChecks(category.key, false));
+        actions.append(applyButton, selectAllButton, clearButton);
+
+        const list = document.createElement("div");
+        list.className = "check-grid";
+        items.forEach((item, index) => {
+          const label = document.createElement("label");
+          label.className = "check-label";
+          const input = document.createElement("input");
+          input.type = "checkbox";
+          input.dataset.category = category.key;
+          input.dataset.target = category.target;
+          input.value = item;
+          input.id = `${category.key}-${index}`;
+          const span = document.createElement("span");
+          span.textContent = item;
+          label.append(input, span);
+          list.append(label);
+        });
+
+        section.append(heading, actions, list);
+        standardsPickerContent.append(section);
+      });
+      standardsPicker.classList.add("is-visible");
+    }
+
+    function hideStandardsPicker() {
+      standardsPicker.classList.remove("is-visible");
+      standardsPickerContent.replaceChildren();
+    }
+
+    function setCategoryChecks(category, checked) {
+      standardsPickerContent
+        .querySelectorAll(`input[data-category="${category}"]`)
+        .forEach((input) => {
+          input.checked = checked;
+        });
+    }
+
+    function applySelectedStandards(category) {
+      const selected = [...standardsPickerContent.querySelectorAll(`input[data-category="${category.key}"]:checked`)]
+        .map((input) => input.value);
+      const target = document.querySelector(`#${category.target}`);
+      target.value = selected.join(category.key === "competencies" ? "\n\n" : "\n");
+      statusBox.textContent = selected.length
+        ? `Applied ${selected.length} selected item${selected.length === 1 ? "" : "s"} to ${category.title}.`
+        : `No ${category.title} selected.`;
+      saveDraft();
+    }
+
+    function option(value, label) {
+      const item = document.createElement("option");
+      item.value = value;
+      item.textContent = label;
+      return item;
+    }
 
     function collect() {
       const data = {};
@@ -854,8 +1181,9 @@
       const template = document.querySelector("#doc-template").content.cloneNode(true);
       template.querySelector("#doc-heading").textContent = `${data.title}: ${data.planType}`;
       addDefinitionList(template.querySelector("#doc-context"), [
-        ["Grade or course", data.grade],
+        ["Grade level", data.grade === "K" ? "Kindergarten" : `Grade ${data.grade}`],
         ["Area of learning", data.subject],
+        ["Course or curriculum page", courseSelect.selectedOptions[0]?.textContent || data.course],
         ["Duration", data.duration],
         ["Learner context", data.learners || "To be completed."]
       ]);
