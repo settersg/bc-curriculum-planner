@@ -961,7 +961,7 @@
     saveDraftBtn.addEventListener("click", () => {
       const payload = buildDraftPayload();
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" });
-      downloadBlob(blob, `${slug(payload.data.title || "bc-curriculum-planner-draft")}-draft.json`);
+      downloadBlob(blob, `${buildPlanFileName(payload.data)}.json`);
       statusBox.textContent = "Draft file downloaded. Save it in a OneDrive or Google Drive synced folder to keep it across devices.";
     });
 
@@ -995,7 +995,7 @@
       const plan = collect();
       const html = buildStandaloneDocument(preview.querySelector(".doc").outerHTML, plan.title || "BC Curriculum Plan");
       const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-      downloadBlob(blob, `${slug(plan.title || "bc-curriculum-plan")}.html`);
+      downloadBlob(blob, `${buildPlanFileName(plan)}.html`);
       statusBox.textContent = "Accessible HTML document downloaded.";
     });
 
@@ -1067,6 +1067,39 @@
       link.click();
       link.remove();
       URL.revokeObjectURL(url);
+    }
+
+    function buildPlanFileName(data) {
+      const grade = data.grade ? `Grade${data.grade}` : "GradeLevel";
+      const selectedCourse = courseSelect.selectedOptions[0]?.textContent || data.course || data.subject || "CourseorCurriculumPage";
+      const planType = data.planType || "LessonPlanorUnitPlan";
+      return [
+        filePart(grade),
+        filePart(selectedCourse),
+        filePart(planType),
+        timestamp()
+      ].join("_");
+    }
+
+    function filePart(value) {
+      return String(value)
+        .replace(/&/g, "and")
+        .replace(/[^A-Za-z0-9]+/g, "")
+        .trim() || "ToBeCompleted";
+    }
+
+    function timestamp() {
+      const now = new Date();
+      const pad = (value) => String(value).padStart(2, "0");
+      return [
+        now.getFullYear(),
+        pad(now.getMonth() + 1),
+        pad(now.getDate())
+      ].join("-") + "-" + [
+        pad(now.getHours()),
+        pad(now.getMinutes()),
+        pad(now.getSeconds())
+      ].join("-");
     }
 
     function updateSubjectOptions(grade) {
