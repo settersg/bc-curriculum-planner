@@ -1070,9 +1070,9 @@
     }
 
     function buildPlanFileName(data) {
-      const grade = data.grade ? `Grade${data.grade}` : "GradeLevel";
-      const selectedCourse = courseSelect.selectedOptions[0]?.textContent || data.course || data.subject || "CourseorCurriculumPage";
-      const planType = data.planType || "LessonPlanorUnitPlan";
+      const grade = data.grade ? (data.grade === "K" ? "Kindergarten" : `Grade ${data.grade}`) : "Grade Level";
+      const selectedCourse = getCourseFileLabel(data);
+      const planType = data.planType || "Lesson Plan or Unit Plan";
       return [
         filePart(grade),
         filePart(selectedCourse),
@@ -1081,11 +1081,22 @@
       ].join("_");
     }
 
+    function getCourseFileLabel(data) {
+      const selected = courseSelect.selectedOptions[0];
+      if (selected?.value) return selected.textContent;
+      if (data.subject && data.grade && data.course) {
+        const course = getCourseOptions(data.subject, data.grade).find((item) => item.value === data.course);
+        if (course) return course.label;
+      }
+      return data.course || data.subject || "Course or Curriculum Page";
+    }
+
     function filePart(value) {
       return String(value)
         .replace(/&/g, "and")
-        .replace(/[^A-Za-z0-9]+/g, "")
-        .trim() || "ToBeCompleted";
+        .trim()
+        .replace(/[^A-Za-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "") || "To_Be_Completed";
     }
 
     function timestamp() {
@@ -1095,7 +1106,7 @@
         now.getFullYear(),
         pad(now.getMonth() + 1),
         pad(now.getDate())
-      ].join("-") + "-" + [
+      ].join("-") + "_" + [
         pad(now.getHours()),
         pad(now.getMinutes()),
         pad(now.getSeconds())
