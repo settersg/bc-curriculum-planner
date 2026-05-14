@@ -282,7 +282,12 @@
       font-weight: 750;
     }
 
-    #context label {
+    #context label,
+    #bc-alignment > .grid > label,
+    #assessment label,
+    #learning-design label,
+    #accessibility .grid label,
+    #other-considerations label {
       color: #00a7e1;
       font-family: Whitney, Arial, "Open Sans", sans-serif;
       font-weight: 400;
@@ -415,7 +420,9 @@
     }
 
     #bc-alignment .standards-category[data-category="coreCompetencies"] .check-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
     }
 
     #bc-alignment .standards-category[data-category="bigIdeas"] .check-grid {
@@ -423,7 +430,7 @@
     }
 
     #bc-alignment .standards-category[data-category="fppl"] .check-grid {
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: 1fr;
     }
 
     #bc-alignment .standards-category .check-label {
@@ -437,19 +444,19 @@
     }
 
     #bc-alignment .standards-category[data-category="bigIdeas"] .check-label {
-      align-items: center;
+      align-items: start;
       min-height: 118px;
-      text-align: center;
+      text-align: left;
       color: #0065a8;
       text-decoration: underline;
     }
 
     #bc-alignment .standards-category[data-category="coreCompetencies"] .check-label {
-      min-height: 56px;
+      min-height: 188px;
       border-color: #009cde;
       background: linear-gradient(90deg, #009cde 0 14px, #fff 14px 100%);
       font-size: 1.1rem;
-      text-align: center;
+      text-align: left;
     }
 
     #bc-alignment .standards-category[data-category="coreCompetencies"] .check-label:nth-child(1) {
@@ -465,10 +472,16 @@
     .core-competency-card {
       display: grid;
       gap: 8px;
+      flex: 1 1 220px;
+      align-self: flex-start;
+      min-width: 0;
+      max-width: 100%;
     }
 
     .core-competency-card .check-label {
       margin: 0;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-content: start;
     }
 
     .core-detail {
@@ -528,9 +541,56 @@
       display: grid;
       gap: 5px;
       margin: 0;
-      padding-left: 1.15rem;
+      padding-left: 0;
       color: #333;
       font-size: 0.9rem;
+      list-style: none;
+    }
+
+    .profile-check {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      color: #333;
+      font-weight: 400;
+    }
+
+    .profile-check input {
+      width: 17px;
+      height: 17px;
+      margin-top: 2px;
+    }
+
+    .fppl-item {
+      display: grid;
+      gap: 8px;
+      border: 1px solid #c5d1db;
+      border-radius: 4px;
+      padding: 10px;
+      background: #eef6fd;
+    }
+
+    .fppl-item .check-label {
+      min-height: 0;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      font-weight: 400;
+    }
+
+    .fppl-reflection {
+      display: none;
+      margin-left: 30px;
+    }
+
+    .fppl-item.is-selected .fppl-reflection {
+      display: grid;
+      gap: 6px;
+    }
+
+    .fppl-reflection textarea {
+      min-height: 82px;
     }
 
     #bc-alignment .standards-category[data-category="competencies"],
@@ -663,8 +723,12 @@
       .layout,
       .grid,
       .check-grid,
-      #standardsPickerContent,
+      #standardsPickerContent {
+        grid-template-columns: 1fr;
+      }
+
       #bc-alignment .standards-category[data-category="coreCompetencies"] .check-grid {
+        display: grid;
         grid-template-columns: 1fr;
       }
 
@@ -1531,6 +1595,8 @@
         list.className = "check-grid";
         if (category.key === "coreCompetencies") {
           renderCoreCompetencyCards(list, category, items);
+        } else if (category.key === "fppl") {
+          renderFpplItems(list, category, items);
         } else {
           items.forEach((item, index) => {
             const label = document.createElement("label");
@@ -1547,6 +1613,32 @@
         standardsPickerContent.append(section);
       });
       standardsPicker.classList.add("is-visible");
+    }
+
+    function renderFpplItems(list, category, items) {
+      items.forEach((item, index) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "fppl-item";
+
+        const label = document.createElement("label");
+        label.className = "check-label";
+        const input = createStandardCheckbox(category, item, index);
+        const span = document.createElement("span");
+        span.textContent = item;
+        label.append(input, span);
+
+        const reflection = document.createElement("label");
+        reflection.className = "fppl-reflection";
+        const textarea = document.createElement("textarea");
+        textarea.className = "short-area";
+        textarea.dataset.fpplReflection = item;
+        textarea.placeholder = "How will this FPPL be meaningfully embedded into your unit / lesson?";
+        textarea.addEventListener("input", () => applySelectedStandards(category, true));
+        reflection.append(textarea);
+
+        wrapper.append(label, reflection);
+        list.append(wrapper);
+      });
     }
 
     function renderCoreCompetencyCards(list, category, items) {
@@ -1580,8 +1672,26 @@
       input.dataset.target = category.target;
       input.value = item;
       input.id = `${category.key}-${String(index).replace(/[^A-Za-z0-9_-]+/g, "-")}`;
-      input.addEventListener("change", () => applySelectedStandards(category, true));
+      input.addEventListener("change", () => {
+        if (category.key === "coreCompetencies" && input.checked) selectParentCoreCompetency(input);
+        if (category.key === "fppl") toggleFpplReflection(input);
+        applySelectedStandards(category, true);
+      });
       return input;
+    }
+
+    function toggleFpplReflection(input) {
+      const item = input.closest(".fppl-item");
+      if (!item) return;
+      item.classList.toggle("is-selected", input.checked);
+      const textarea = item.querySelector("textarea");
+      if (textarea && !input.checked) textarea.value = "";
+    }
+
+    function selectParentCoreCompetency(input) {
+      const card = input.closest(".core-competency-card");
+      const parent = card?.querySelector(":scope > .check-label input[data-category='coreCompetencies']");
+      if (parent && parent !== input) parent.checked = true;
     }
 
     function buildCoreDetails(coreName, category) {
@@ -1604,9 +1714,17 @@
 
         const list = document.createElement("ol");
         list.className = "profile-list";
-        subCompetency.profiles.forEach((profile) => {
+        subCompetency.profiles.forEach((profile, profileIndex) => {
           const item = document.createElement("li");
-          item.textContent = profile;
+          const profileLabel = document.createElement("label");
+          profileLabel.className = "profile-check";
+          const profileInput = createStandardCheckbox(
+            category,
+            `${coreName}: ${subCompetency.title} - ${profile}`,
+            `${coreName}-${index}-profile-${profileIndex}`
+          );
+          profileLabel.append(profileInput, document.createTextNode(profile));
+          item.append(profileLabel);
           list.append(item);
         });
         section.append(label, list);
@@ -1627,13 +1745,13 @@
         .querySelectorAll(`input[data-category="${category.key}"]`)
         .forEach((input) => {
           input.checked = checked;
+          if (category.key === "fppl") toggleFpplReflection(input);
         });
       applySelectedStandards(category, true);
     }
 
     function applySelectedStandards(category, quiet = false) {
-      const selected = [...standardsPickerContent.querySelectorAll(`input[data-category="${category.key}"]:checked`)]
-        .map((input) => input.value);
+      const selected = getSelectedStandardValues(category);
       const target = document.querySelector(`#${category.target}`);
       target.value = selected.join(category.key === "competencies" ? "\n\n" : "\n");
       if (!quiet) {
@@ -1642,6 +1760,17 @@
           : `No ${category.title} selected.`;
       }
       saveDraft();
+    }
+
+    function getSelectedStandardValues(category) {
+      return [...standardsPickerContent.querySelectorAll(`input[data-category="${category.key}"]:checked`)]
+        .map((input) => {
+          if (category.key !== "fppl") return input.value;
+          const reflection = input.closest(".fppl-item")?.querySelector("textarea")?.value.trim();
+          return reflection
+            ? `${input.value}\nHow this FPPL will be meaningfully embedded: ${reflection}`
+            : `${input.value}\nHow this FPPL will be meaningfully embedded: To be completed.`;
+        });
     }
 
     function option(value, label) {
