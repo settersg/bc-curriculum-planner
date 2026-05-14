@@ -25,7 +25,7 @@ http://127.0.0.1:58942/
 5. Include the official source URL and access date.
 6. Generate the plan and export it as accessible HTML.
 
-The app includes embedded selectable standards for the main Grade 6 curriculum pages, including ADST, Arts Education, Career Education, English Language Arts, Français langue première, Français langue seconde - immersion, Mathematics, Physical and Health Education, Science, Social Studies, and Core French. Other selections set the official BC Curriculum source link and keep the standards fields editable for teacher verification.
+The app includes embedded selectable standards generated from the official BC Curriculum pages for K-12 areas and senior course options exposed by the planner dropdowns. The curriculum dataset lives in `curriculum-data.js`, while `index.html` contains the planner interface. Career-Life Education and Career-Life Connections link to the official BC pages and remain editable because those pages do not expose Big Ideas, Curricular Competencies, and Content in the same structure as the other curriculum pages.
 
 ## Saving Progress
 
