@@ -522,19 +522,11 @@
       font-size: 1rem;
     }
 
-    .sub-competency-check {
-      display: grid;
-      grid-template-columns: 22px minmax(0, 1fr);
-      gap: 8px;
-      align-items: start;
+    .sub-competency-title {
+      margin: 0;
       color: #333;
+      font-size: 1rem;
       font-weight: 700;
-    }
-
-    .sub-competency-check input {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
     }
 
     .profile-list {
@@ -1673,7 +1665,7 @@
       input.value = item;
       input.id = `${category.key}-${String(index).replace(/[^A-Za-z0-9_-]+/g, "-")}`;
       input.addEventListener("change", () => {
-        if (category.key === "coreCompetencies" && input.checked) selectParentCoreCompetency(input);
+        if (category.key === "coreCompetencies") syncParentCoreCompetency(input);
         if (category.key === "fppl") toggleFpplReflection(input);
         applySelectedStandards(category, true);
       });
@@ -1688,10 +1680,12 @@
       if (textarea && !input.checked) textarea.value = "";
     }
 
-    function selectParentCoreCompetency(input) {
+    function syncParentCoreCompetency(input) {
       const card = input.closest(".core-competency-card");
       const parent = card?.querySelector(":scope > .check-label input[data-category='coreCompetencies']");
-      if (parent && parent !== input) parent.checked = true;
+      if (!card || !parent || parent === input) return;
+      const hasSelectedProfiles = Boolean(card.querySelector(".profile-check input[data-category='coreCompetencies']:checked"));
+      parent.checked = hasSelectedProfiles;
     }
 
     function buildCoreDetails(coreName, category) {
@@ -1701,16 +1695,9 @@
       subCompetencies.forEach((subCompetency, index) => {
         const section = document.createElement("section");
         section.className = "sub-competency";
-        const label = document.createElement("label");
-        label.className = "sub-competency-check";
-        const input = createStandardCheckbox(
-          category,
-          `${coreName}: ${subCompetency.title}`,
-          `${coreName}-${index}`
-        );
-        const labelText = document.createElement("span");
-        labelText.textContent = subCompetency.title;
-        label.append(input, labelText);
+        const heading = document.createElement("h4");
+        heading.className = "sub-competency-title";
+        heading.textContent = subCompetency.title;
 
         const list = document.createElement("ol");
         list.className = "profile-list";
@@ -1727,7 +1714,7 @@
           item.append(profileLabel);
           list.append(item);
         });
-        section.append(label, list);
+        section.append(heading, list);
         body.append(section);
       });
       return body;
